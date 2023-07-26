@@ -1,3 +1,5 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-docs/abap-platform-trial-image)](https://api.reuse.software/badge/github.com/SAP-docs/abap-platform-trial-image)
+
 ***********************************************************************************
 
 # Before you pull the image
