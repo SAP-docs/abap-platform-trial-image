@@ -10,7 +10,7 @@
 
 # Requirements
 
-Windows and Mac users must make sure they have assigned enough resources to their Desktop Docker because their Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment.
+Windows and Mac users must make sure they have assigned enough resources to their Desktop Docker because their Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment. We recommend 32GB RAM.
 
 ## Linux
 
@@ -36,7 +36,7 @@ To be able to start the system you must agree to SAP COMMUNITY License which wil
 
 ## Installation
 
-Before your start, please make sure you have assigned enough disk space to your Docker set up. The image has around 23GB of size when compressed and 62GB after decompressing. It would be frustrating to lose plenty of time downloading the image to only find out docker does not have enough disk space to unpack the image.
+Before your start, please make sure you have assigned enough disk space to your Docker set up. The image has around 23GB of size when compressed and >53GB after decompressing. It would be frustrating to lose plenty of time downloading the image to only find out docker does not have enough disk space to unpack the image.
 
 To be able to successfully run the system, it's necessary to assign at least 16GB RAM to Docker Desktop.
 
@@ -124,7 +124,7 @@ In the case you want to skip the hostname check, add the parameter `-skip-hostna
 
 The image contains a script which is able to update AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path */opt/sap/ASABAP_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
 
-**New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/ASABAP_license`. Please, make sure the *-v* parameter is on your command line before Docker image name (*saplabs/abaptrial:latest*) because the parameter belongs to to *docker run* and everything behind the image name is passed to  programs inside the container.
+**New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/ASABAP_license`. Please, make sure the *-v* parameter is on your command line before Docker image name (*sapse/abap-platform-trial:1909*) because the parameter belongs to to *docker run* and everything behind the image name is passed to  programs inside the container.
  
 **Existing container**:  Copy the key file to the container with the command `docker cp <local path the key file> a4h:/opt/sap/ASABAP_license`. If the container was stopped, the file will be applied when you start the container again. If the container is running, you can either stop and start the container or you can trigger the license update functionality via `docker exec -it a4h /usr/local/bin/asabap_license_update`.
 
@@ -136,7 +136,7 @@ The image is shipped with a valid HDB license and it's not necessary to re-apply
 
 The image contains a script which is able to update HDB license from the file you bind mount or copy to the container. So, if you run into the need to update HDB license, just save the text file onto your local file system and push it to the container at the path */opt/sap/HDB_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
 
-**New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/HDB_license`.  Please, make sure the *-v* parameter is on your command line before Docker image name (*saplabs/abaptrial:latest*) because the parameter belongs to to *docker run* and everything behind the image name is passed to programs inside the container.
+**New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/HDB_license`.  Please, make sure the *-v* parameter is on your command line before Docker image name (*sapse/abap-platform-trial:1909*) because the parameter belongs to to *docker run* and everything behind the image name is passed to programs inside the container.
 
 **Existing container**:  Copy the key file to the container with the command `docker cp <local path the key file> a4h:/opt/sap/HDB_license`. If the container was stopped, the file will be applied when you start the container again. If the container is running, you can either stop and start the container or you can trigger the license update functionality via `docker exec -it a4h /usr/local/bin/hdb_license_update`.
 
@@ -174,7 +174,7 @@ In the case you want run more than 1 container and you do not use GNU/Linux you 
 
 ### Browser
 
-Accessing the port HTTP or HTTPS services via an internet browser does not have any special requirements as long as you use the port 50000 for HTPP or the port 50001 for HTTPS and the correct host.
+Accessing the port HTTP or HTTPS services via an internet browser does not have any special requirements as long as you use the port 50000 for HTTP or the port 50001 for HTTPS and the correct host.
 
 The host value depends on the way how you started the container.  If you exposed all the required ports, than you can use *localhost*. If your Operating System allows you to configure IP routing the way that you can reach out the container's IP directly, you can use `<the container's IP>`.
 
