@@ -24,3 +24,11 @@ Adhere to the [SAP Open Source Code of Conduct](https://github.com/SAP-docs/.git
 ## Developer Certificate of Origin (DCO)
 
 Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
+
+## Licensing
+
+Copyright 2023 SAP SE or an SAP affiliate company and SAP Concur API documentation contributors.
+
+Please see our [LICENSE](LICENSE) for copyright and license information.
+
+Detailed information including third-party components and their licensing/copyright information is available via [the REUSE tool](https://api.reuse.software/info/github.com/SAP-docs/abap-platform-trial-image)
