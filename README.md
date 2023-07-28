@@ -4,14 +4,14 @@
 # Before you pull the image
 
 - You understand the principles of docker container technology
-- You know the entities docker image / docker container and  the relationship inbetween
+- You know the entities docker image / docker container and their relationship
 - You know the basic commands to work with images and containers
 
 # Requirements
 
 Windows and Mac users must make sure they have assigned enough resources to their Desktop Docker because their Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment. 
 
-**_We highly recommend 32GB RAM._**
+**_Please note: We highly recommend 32GB RAM to run the ABAP Platform Trial image. The following requirements only cover the resources needed for the Docker environment itself._**
 
 ## Linux
 
@@ -51,7 +51,7 @@ docker pull sapse/abap-platform-trial:1909
 
 ## Run
 
-The system expects host name be *vhcala4hci*, all other host names will prevent system from starting.
+The system expects host name be *vhcala4hci*, all other host names will prevent the system from starting.
 Please, use the following command and watch the output carefully:
 
 ### GNU/Linux
@@ -66,15 +66,15 @@ docker run --stop-timeout 3600 -it --name a4h -h vhcala4hci sapse/abap-platform-
 docker run --stop-timeout 3600 -i --name a4h -h vhcala4hci -p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001 sapse/abap-platform-trial:1909 -skip-limits-check
 ```
 
-We start the container in interactive mode (*-i*) for being able to stop the system gracefully using the key stroke Ctrl-C. However, we also use the parameter `--stop-timeout` which cause that Docker will give SAP HANA db (HDB) enough time to write its InMemory database onto disk upon shutdown request.
+We start the container in interactive mode (*-i*) for being able to stop the system gracefully using the key stroke Ctrl-C. However, we also use the parameter `--stop-timeout` which causes that Docker will give the SAP HANA database (HDB) enough time to write its In-Memory database onto disk upon shutdown request.
 
 We name the container *a4h* for easier reference in future commands.
 
 In the case you want to use [podman](https://podman.io/) instead of docker, please add also the parameter *-t* to correctly forward SIGINT to the container's init process.
 
-If you plan to stop and start the container to keep your changes in the system, it is recommended to use also the parameter *-agree-to-sap-license*. The parameter will make sure **you will not need to manually accept the license agreement**.
+If you plan to stop and start the container to keep your changes in the system, it is recommended to also use the parameter *-agree-to-sap-license*. The parameter will make sure **you will not need to manually accept the license agreement**.
 
-After all the services are successfully started, it is a good idea to wait until CPU load goes down and amount of used of Memory stops from growing before you attempt to logon to the system.
+After all the services are successfully started, it is a good idea to wait until the CPU load goes down and the amount of used Memory stops from growing before you attempt to logon to the system.
 
 ### Run troubleshooting
 
@@ -123,9 +123,9 @@ In the case you want to skip the hostname check, add the parameter `-skip-hostna
 
 **_ABAP Platform (AS ABAP)_**
 
-The image contains a script which is able to update AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path */opt/sap/ASABAP_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
+The image contains a script which is able to update the AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path */opt/sap/ASABAP_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
 
-**New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/ASABAP_license`. Please, make sure the *-v* parameter is on your command line before Docker image name (*sapse/abap-platform-trial:1909*) because the parameter belongs to to *docker run* and everything behind the image name is passed to  programs inside the container.
+**New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/ASABAP_license`. Please, make sure the *-v* parameter is on your command line before the Docker image name (*sapse/abap-platform-trial:1909*) because the parameter belongs to *docker run* and everything behind the image name is passed to  programs inside the container.
  
 **Existing container**:  Copy the key file to the container with the command `docker cp <local path the key file> a4h:/opt/sap/ASABAP_license`. If the container was stopped, the file will be applied when you start the container again. If the container is running, you can either stop and start the container or you can trigger the license update functionality via `docker exec -it a4h /usr/local/bin/asabap_license_update`.
 
@@ -135,7 +135,7 @@ If you run into troubles with the AS ABAP license update script, you can prevent
 
 The image is shipped with a valid HDB license and it's not necessary to re-apply the license until it expires. 
 
-The image contains a script which is able to update HDB license from the file you bind mount or copy to the container. So, if you run into the need to update HDB license, just save the text file onto your local file system and push it to the container at the path */opt/sap/HDB_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
+The image contains a script which is able to update the HDB license from the file you bind mount or copy to the container. So, if you run into the need to update HDB license, just save the text file onto your local file system and push it to the container at the path */opt/sap/HDB_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
 
 **New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/HDB_license`.  Please, make sure the *-v* parameter is on your command line before Docker image name (*sapse/abap-platform-trial:1909*) because the parameter belongs to to *docker run* and everything behind the image name is passed to programs inside the container.
 
@@ -156,15 +156,15 @@ The following list defines ports used by the container:
 
 If you need to access the container outside the docker host (from a different machine or a VM) or you are not lucky enough to run GNU/Linux, please expose the ports using the parameter *-p* (the lower case p, case matters) (e.g. for SAPGUI add the following to docker run command: `-p 3200:3200`).
 
-For your convenience, here is the string exposing all relevant ports which you can copy'n'paste to your docker run command:
+For your convenience, here is the string exposing all relevant ports which you can copy and paste to your docker run command:
 
 `-p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001`
 
-If you run into the need to expose too many ports, you can consider using `--net=host` instead of exposing ports one by one but the option will cause that all container's port will be available outside the docker host and you will not be able to start another such a container. Unfortunately, it appears that this option is available to GNU/Linux users only.
+If you run into the need to expose too many ports, you can consider using `--net=host` instead of exposing ports one by one but the option will cause that all container's port will be available outside the docker host and you will not be able to start another such container. Unfortunately, it appears that this option is available to GNU/Linux users only.
 
 Please, do not use the parameter *-P* (the capitalized P, case matters) because that exposes container ports on random host ports and many SAP clients requires exact ports which cannot be changed (e.g. if the container's port 3200 is exposed as the port 54356, as far as we know you will not be able to configure SAPGUI for Windows to connect to that port).
 
-In the case you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TCP/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Study materials:
+In the case you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TCP/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Self-study materials:
 - https://docs.docker.com/docker-for-windows/networking/
 - https://github.com/docker/for-win/issues/221
 
@@ -177,7 +177,7 @@ In the case you want run more than 1 container and you do not use GNU/Linux you 
 
 Accessing the port HTTP or HTTPS services via an internet browser does not have any special requirements as long as you use the port 50000 for HTTP or the port 50001 for HTTPS and the correct host.
 
-The host value depends on the way how you started the container.  If you exposed all the required ports, than you can use *localhost*. If your Operating System allows you to configure IP routing the way that you can reach out the container's IP directly, you can use `<the container's IP>`.
+The host value depends on the way how you started the container.  If you exposed all the required ports, then you can use *localhost*. If your Operating System allows you to configure IP routing the way that you can reach out the container's IP directly, you can use `<the container's IP>`.
 
 When you get redirected to your browser from SAPGUI, the URL will have host set to `vhcala4hci` which will not be reachable unless you modify your **hosts** file ([Hosts file](https://en.wikipedia.org/wiki/Hosts_(file))).  It is necessary to add a new entry which will make sure your Operating System will be able to translate the hostname *vhcala4hci* to an IP address. Contents of the new entry depends on how you started the container. 
 
@@ -190,7 +190,7 @@ When you get redirected to your browser from SAPGUI, the URL will have host set 
 Please, add a custom specified system with the Application Server `<the container's IP>`or *localhost* if you exposed the port 3200 (i.e. `-p 3200:3200`) or *vhcala4hci* if you updated your *hosts* file. Finally use Instance `00` and SID `A4H`.
 
 The user name is *DEVELOPER* with the password *Htods70334*.
-Also predefined  (same password) client 000,client 001:  SAP* , DDIC.
+This is also predefined (same password) for client 000,client 001:  SAP* , DDIC.
 
 ### SAP Cloud Connector
 
@@ -245,7 +245,7 @@ Error message when starting SAP Cloud Connector (SCC)
 ```bash
 ERROR: shell command for retrieving PID of process bound to SCC port ...java.io.IOEcception..
 ```
-Eror message does not affect the functionality of SAP Cloud Connector (SCC) and will be removed whith the next version of SCC.
+Eror message does not affect the functionality of SAP Cloud Connector (SCC) and will be removed with the next version of SCC.
 
 Creating a new container 
 
@@ -253,7 +253,7 @@ Do not miss parameter
 ```bash
 -agree-to-sap-license 
 ```
-The script asks for the aggreement if it's missing but you probably run into a problem when you stop and start the container again. 
+The script asks for the agreement if it's missing but you probably run into a problem when you stop and start the container again. 
 
 # Primary contacts
 - [Julie Plummer](mailto:julie.plummer@sap.com)
