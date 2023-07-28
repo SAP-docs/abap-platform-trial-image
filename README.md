@@ -1,5 +1,4 @@
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP-docs/abap-platform-trial-image)](https://api.reuse.software/badge/github.com/SAP-docs/abap-platform-trial-image)
-
+*_Click on tab_* **_Tags_** *_to pull the image_*
 ***********************************************************************************
 
 # Before you pull the image
@@ -10,7 +9,9 @@
 
 # Requirements
 
-Windows and Mac users must make sure they have assigned enough resources to their Desktop Docker because their Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment. We recommend 32GB RAM.
+Windows and Mac users must make sure they have assigned enough resources to their Desktop Docker because their Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment. 
+
+**_We highly recommend 32GB RAM._**
 
 ## Linux
 
@@ -65,7 +66,7 @@ docker run --stop-timeout 3600 -it --name a4h -h vhcala4hci sapse/abap-platform-
 docker run --stop-timeout 3600 -i --name a4h -h vhcala4hci -p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001 sapse/abap-platform-trial:1909
 ```
 
-We start the container in interactive mode (*-i*) for being able to stop the system gracefully using the key stroke Ctrl-C. However, we also use the parameter `--stop-timeout` which cause that Docker will give HDB enough time to write its InMemory database onto disk upon shutdown request.
+We start the container in interactive mode (*-i*) for being able to stop the system gracefully using the key stroke Ctrl-C. However, we also use the parameter `--stop-timeout` which cause that Docker will give SAP HANA db (HDB) enough time to write its InMemory database onto disk upon shutdown request.
 
 We name the container *a4h* for easier reference in future commands.
 
@@ -120,7 +121,7 @@ In the case you want to skip the hostname check, add the parameter `-skip-hostna
 
 ### Licenses
 
-**_AS ABAP_**
+**_ABAP Platform (AS ABAP)_**
 
 The image contains a script which is able to update AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path */opt/sap/ASABAP_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
 
@@ -163,7 +164,7 @@ If you run into the need to expose too many ports, you can consider using `--net
 
 Please, do not use the parameter *-P* (the capitalized P, case matters) because that exposes container ports on random host ports and many SAP clients requires exact ports which cannot be changed (e.g. if the container's port 3200 is exposed as the port 54356, as far as we know you will not be able to configure SAPGUI for Windows to connect to that port).
 
-In the case you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TPC/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Study materials:
+In the case you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TCP/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Study materials:
 - https://docs.docker.com/docker-for-windows/networking/
 - https://github.com/docker/for-win/issues/221
 
@@ -190,14 +191,6 @@ Please, add a custom specified system with the Application Server `<the containe
 
 The user name is *DEVELOPER* with the password *Htods70334*.
 Also predefined  (same password) client 000,client 001:  SAP* , DDIC.
-
-### SAP HANA Studio
-
-Please, use `<the container's IP>` or *localhost*  if you exposed the port 30213 (i.e. `-p 30213:30213`) or *vhcala4hci* if you updated your *hosts* file. Finally use Instance `02` and MDC (the port 30213).
-
-For the database SYSTEMDB, use the user *SYSTEM* with the password *Htods70334*.
-
-For the database HDB, use the user *SAPA4H* with the password *Htods70334*.
 
 ### SAP Cloud Connector
 
