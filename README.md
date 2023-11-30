@@ -201,7 +201,9 @@ docker exec -it a4h bash
 /usr/local/sbin/rcscc_daemon start
 ```
 
-SAP Cloud Connector status can be checked by
+SAP Cloud Connector status can be checked by:
+
+```bash
 docker exec -it a4h bash
 /usr/local/sbin/rcscc_daemon status
 ```
