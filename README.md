@@ -1,4 +1,34 @@
-*_Click on tab_* **_Tags_** *_to pull the image_*
+
+- [**Important**:](#important)
+- [Before you pull the image](#before-you-pull-the-image)
+- [Requirements](#requirements)
+  - [Linux](#linux)
+  - [Windows](#windows)
+  - [macOS](#macos)
+- [Usage](#usage)
+  - [Installation](#installation)
+  - [Run](#run)
+    - [GNU/Linux](#gnulinux)
+    - [Other](#other)
+    - [Run troubleshooting](#run-troubleshooting)
+    - [Licenses](#licenses)
+  - [Connection](#connection)
+    - [SAPGUI](#sapgui)
+    - [User and Passwords](#user-and-passwords)
+    - [Browser](#browser)
+    - [SAP Cloud Connector](#sap-cloud-connector)
+  - [Additional Information](#additional-information)
+    - [Stop](#stop)
+    - [Start again](#start-again)
+    - [abapGit](#abapgit)
+  - [Known issues](#known-issues)
+    - [Error message when starting SAP Cloud Connector (SCC)](#error-message-when-starting-sap-cloud-connector-scc)
+    - [Creating a new container](#creating-a-new-container)
+- [Primary contacts](#primary-contacts)
+
+
+# **Important**:
+*_Click on the tab_* **_Tags_** *_to pull the image_*
 ***********************************************************************************
 
 # Before you pull the image
@@ -173,6 +203,19 @@ Mac users must always publish the required ports because of the know Docker for 
 
 In the case you want run more than 1 container and you do not use GNU/Linux you can play with publish port numbers. For example you can expose the container's port 3200 as the port 3201 (*-p 3201:3200*) and then you can connect to SAPGUI with the instance number 01 instead of the default 00.
 
+### SAPGUI
+
+1. Add a custom-specified system with the Application Server `<the container's IP>`or *localhost* if you exposed the port 3200 (i.e. `-p 3200:3200`) or *vhcala4hci* if you updated your *hosts* file. 
+2. Finally use Instance `00` and SID `A4H`.
+
+### User and Passwords
+The user name is *DEVELOPER*. 
+The password is:
+- for ABAP Platform Trial 1909, initial shipment *`Htods70334`*
+- for ABAP Platform Trial 1909, SP01 *`ABAPtr1909`*
+
+This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
+
 ### Browser
 
 Accessing the port HTTP or HTTPS services via an internet browser does not have any special requirements as long as you use the port 50000 for HTTP or the port 50001 for HTTPS and the correct host.
@@ -185,16 +228,9 @@ When you get redirected to your browser from SAPGUI, the URL will have host set 
 
 **No explicit port exposure** - append the line `<the container's IP>  vhcala4hci`
 
-### SAPGUI
-
-Please, add a custom specified system with the Application Server `<the container's IP>`or *localhost* if you exposed the port 3200 (i.e. `-p 3200:3200`) or *vhcala4hci* if you updated your *hosts* file. Finally use Instance `00` and SID `A4H`.
-
-The user name is *DEVELOPER* with the password *Htods70334*.
-This is also predefined (same password) for client 000,client 001:  SAP* , DDIC.
-
 ### SAP Cloud Connector
 
-To be able to use SAP Cloud Connector, you must start the connector start an additional service via the following commands:
+To be able to use SAP Cloud Connector, you must start an additional service via the following commands:
 
 ```bash
 docker exec -it a4h bash
@@ -221,7 +257,9 @@ You can connect to the instance of SAP Cloud Connector at:
 
 with the user *Administrator* and the password *manage*.
 
-## Stop
+
+## Additional Information
+### Stop
 
 We must make sure SAP HANA has enough time to write all its data into files on your disk.
 To stop the container gracefully, hit Ctrl-C in the command window
@@ -231,7 +269,7 @@ where you started the container or run the following command:
 docker stop --time-out 7200 a4h
 ```
 
-## Start again
+### Start again
 
 You can start a stopped container via the command *docker start*. 
 
@@ -239,22 +277,35 @@ You can start a stopped container via the command *docker start*.
 docker start -ai a4h
 ```
 
-We must start it in the interactive mode to be able to respond to the possible start problems and we must "attach" to the container using the parameter `-a` to be able  to see text output.
+- `-i` = We must start it in the interactive mode to be able to respond to the possible start problems 
+- `-a` = we must "attach" to the container to be able  to see text output
+
+
+ ### abapGit
+ abapGit is available to download here, along with complete instructions:
+
+[abapGit Installation](https://docs.abapgit.org/user-guide/getting-started/install.html)
+
+Note that the report you download is named **`ZABAPGIT_STANDALONE`**.
 
 
 ## Known issues
-Error message when starting SAP Cloud Connector (SCC)
+
+### Error message when starting SAP Cloud Connector (SCC)
 ```bash
 ERROR: shell command for retrieving PID of process bound to SCC port ...java.io.IOEcception..
 ```
-Eror message does not affect the functionality of SAP Cloud Connector (SCC) and will be removed with the next version of SCC.
+The error message does not affect the functionality of SAP Cloud Connector (SCC) and will be removed in a future version of SCC.
 
-Creating a new container 
 
-Do not miss parameter 
+### Creating a new container 
+
+Do not omit the following parameter: 
+
 ```bash
 -agree-to-sap-license 
 ```
+
 The script asks for the agreement if it's missing but you probably run into a problem when you stop and start the container again. 
 
 # Primary contacts
