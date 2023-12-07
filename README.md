@@ -27,7 +27,7 @@
 - [Primary contacts](#primary-contacts)
 
 
-# **Important**:
+# **Important**: 
 *_Click on the tab_* **_Tags_** *_to pull the image_*
 ***********************************************************************************
 
