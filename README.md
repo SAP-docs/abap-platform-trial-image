@@ -151,13 +151,23 @@ In the case you want to skip the hostname check, add the parameter `-skip-hostna
 
 **_ABAP Platform (AS ABAP)_**
 
+**Updating the license via SAPGUI (SLICENSE)** 
+The ABAP license supplied with the Docker image lasts only three months. Therefore, you should download and import the demo license as follows:
+
+1. Logon to your ABAP system with the user SAP*, client 000, same password as for DEVELOPER (DEVELOPER , client 001, is locked).
+2. Start transaction SLICENSE; copy the hardware key.
+3. Get the license from minisap , choosing the system A4H.
+4. Back in your ABAP System, log off, then log on with the user DEVELOPER, client 001.
+5. Start SLICENSE again; remove the old invalid licenses. (sap* is not allowed to delete licenses).
+
+**Updating the license via Docker**
 The image contains a script which is able to update the AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path */opt/sap/ASABAP_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
 
-**New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/ASABAP_license`. Please, make sure the *-v* parameter is on your command line before the Docker image name (*sapse/abap-platform-trial:1909*) because the parameter belongs to *docker run* and everything behind the image name is passed to  programs inside the container.
+**Updating via Docker: New container**:  Update the *docker run* command with `-v <local path the key file>:/opt/sap/ASABAP_license`. Please, make sure the *-v* parameter is on your command line before the Docker image name (*sapse/abap-platform-trial:1909*) because the parameter belongs to *docker run* and everything behind the image name is passed to  programs inside the container.
  
-**Existing container**:  Copy the key file to the container with the command `docker cp <local path the key file> a4h:/opt/sap/ASABAP_license`. If the container was stopped, the file will be applied when you start the container again. If the container is running, you can either stop and start the container or you can trigger the license update functionality via `docker exec -it a4h /usr/local/bin/asabap_license_update`.
+**Updating via Docker: Existing container**:  Copy the key file to the container with the command `docker cp <local path the key file> a4h:/opt/sap/ASABAP_license`. If the container was stopped, the file will be applied when you start the container again. If the container is running, you can either stop and start the container or you can trigger the license update functionality via `docker exec -it a4h /usr/local/bin/asabap_license_update`.
 
-If you run into troubles with the AS ABAP license update script, you can prevent the container from executing this functionality by passing the parameter *-no-asabap-license-update* or by creating the file */opt/sap/.no_ASABAP_license_update* in the container.
+If you run into trouble with the AS ABAP license update script, you can prevent the container from executing this functionality by passing the parameter *-no-asabap-license-update* or by creating the file */opt/sap/.no_ASABAP_license_update* in the container.
 
 **_HDB_**
 
