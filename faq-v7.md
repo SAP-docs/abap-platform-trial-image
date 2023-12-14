@@ -6,7 +6,9 @@
     - [Shutting down gracefully](#shutting-down-gracefully)
     - [Restarting](#restarting)
     - [Other relevant Docker commands](#other-relevant-docker-commands)
-  - [Set up SAP Gui and logon to the system ABAP Platform 1909](#set-up-sap-gui-and-logon-to-the-system-abap-platform-1909)
+
+  - [Set up SAP GUI and log on to the system ABAP Platform 1909](#set-up-sap-gui-and-log-on-to-the-system-abap-platform-1909)
+
 - [2 Licenses](#2-licenses)
     - [ABAP Platform (AS ABAP)](#abap-platform-as-abap)
     - [HDB](#hdb)
@@ -50,7 +52,8 @@ correctly forward SIGINT to the container's init process.
 
 **Important: Make sure you stop the container in a controlled manner:**
 
-```
+
+```bash
 docker stop --time 7200 a4h
 ```
 
@@ -59,28 +62,31 @@ would then need to create a new one.**
 
 ### Restarting
 
-```
+
+```bash
 docker start -ai a4h
 ```
 
 
 ### Other relevant Docker commands
-```
+
+```bash
 docker exec -it a4h bash
 ```
 - Create terminal within the docker image / container (equivalent to PuTTy)
 
-```
+```bash
 docker images
 ```
 - Returns list of all available images
 
-```
+```bash
 docker inspect
 ```
 – Returns detailed information, e.g. IP address of container
 
-```
+```bash
+
 docker ps -a
 ```
 
@@ -90,12 +96,13 @@ For more information on docker commands, see [docker docs: Command-line
 Reference](https://docs.docker.com/engine/reference/run/)
 
 
-## Set up SAP Gui and logon to the system ABAP Platform 1909
+## Set up SAP GUI and log on to the system ABAP Platform 1909
 
-1.  Install the SAPGui that fits to your operating system, attached
+1.  Install the SAP GUI that fits to your operating system, attached
     here.
 
-2.  Set up System access (example SAP GUI 760 for Windows)
+2.  Set up System access (e.g. SAP GUI 7.70 for Windows)
+
 
     1.  Click on New, select Connection
 
@@ -103,16 +110,15 @@ Reference](https://docs.docker.com/engine/reference/run/)
 
 <img src="media/image4.png" style="width:6.3in;height:3.24792in" />
 
-3.  Logon to the system
 
+3.  Logon to the system:
 
-> Client: 001
->
-> User: developer
->
-> Password: Ldtf5432
->
-> Language: EN
+> | Parameter    | Value |
+> | -------- | ------- |
+> | User     | DEVELOPER |
+> | Password | Ldtf5432 |
+> | Language | EN |
+
 
 
 Password for the a4hadm OS user in the container:
@@ -120,7 +126,9 @@ Password for the a4hadm OS user in the container:
 In Docker you don't need a password for user **a4hadm**. You just open a
 new CMD prompt and switch users:
 
-```
+
+```bash
+
 docker exec -it a4h bash  
 su a4hadm
 ```
@@ -167,7 +175,9 @@ See section 4 Errors -> Logon not possible (error in license check)
 ### Deleting and installing the license using bash <!-- omit from toc --> 
 1.	Start a4h and copy the hardware key
 
-    ```
+
+    ```bash
+
     docker start -ai a4h
     ```
 
@@ -175,12 +185,16 @@ See section 4 Errors -> Logon not possible (error in license check)
 
 3.	Rename the file `A4H_Multiple.txt` to `A4H.txt`
 4.	Copy the license
-    ```
+
+    ```bash
+
     docker cp A4H.txt a4h:/opt/sap/ASABAP_license
     ```
 5.	Run the following command and the license will be activated
 
-    ```
+
+    ```bash
+
     docker start -ai a4h
     ```
 
@@ -312,7 +326,9 @@ command.
 
 Same with WebIDE:
 
-```
+
+```bash
+
 -p 8080:8080 or -p 53075:53075
 ```
 
@@ -474,7 +490,8 @@ sections 2, 3, 8, 9
 
 **Normal user/password:**
 
-> User: developer
+
+> User: DEVELOPER
 >
 > Password: Ldtf5432
 
@@ -483,8 +500,12 @@ sections 2, 3, 8, 9
 In Docker you don't need a password for user **a4hadm**. You just open a
 new CMD prompt and switch users.
 
+
+```bash
 docker exec -it a4h bash  
 su a4hadm
+```
+
 
 # 6 Resources
 
@@ -503,13 +524,17 @@ style="width:1.64583in;height:1.3125in" />
 If it is an issue involving ABAP developer edition, remember to add the
 hashtag **\#ABAP_Trial**.
 
-Please do **not** use comments in the blogs to ask tech support
+
+Please do **not** use comments in the blog posts to ask tech support
+
 questions:
 
 -   It makes it difficult for other users to find similar issues in
     future, which leads to many duplicated errors.
 
--   Very few people follow these blogs, so you will not get help from
+
+-   Very few people follow these blog posts, so you will not get help from
     the vast majority of the community
 
--   There is no capacity to monitor all blogs for all released versions.
+-   There is no capacity to monitor all blog posts for all released versions.
+
