@@ -100,8 +100,6 @@ We start the container in interactive mode (*-i*) for being able to stop the sys
 
 We name the container *a4h* for easier reference in future commands.
 
-In the case you want to use [podman](https://podman.io/) instead of docker, please add also the parameter *-t* to correctly forward SIGINT to the container's init process.
-
 If you plan to stop and start the container to keep your changes in the system, it is recommended to also use the parameter *-agree-to-sap-license*. The parameter will make sure **you will not need to manually accept the license agreement**.
 
 After all the services are successfully started, it is a good idea to wait until the CPU load goes down and the amount of used Memory stops from growing before you attempt to logon to the system.
@@ -172,6 +170,10 @@ The image contains a script which is able to update the HDB license from the fil
 **Existing container**:  Copy the key file to the container with the command `docker cp <local path the key file> a4h:/opt/sap/HDB_license`. If the container was stopped, the file will be applied when you start the container again. If the container is running, you can either stop and start the container or you can trigger the license update functionality via `docker exec -it a4h /usr/local/bin/hdb_license_update`.
 
 If you run into troubles with the license update script, you can prevent the container from executing this functionality by passing the parameter *-no-asabap-license-update* or by creating the file */opt/sap/.no_HDB_license_update* in the container.
+
+
+**Open Source Legal Notices**
+[Open Source Legal Notice](https://support.sap.com/content/dam/launchpad/en_us/osln/osln/73555000100900006355_20231015054035.pdf)
 
 
 ## Connection
