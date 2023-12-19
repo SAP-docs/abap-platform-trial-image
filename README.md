@@ -278,7 +278,7 @@ To stop the container gracefully, hit Ctrl-C in the command window
 where you started the container or run the following command:
 
 ```bash
-docker stop --time-out 7200 a4h
+docker stop -t 7200 a4h
 ```
 
 ### Start again
