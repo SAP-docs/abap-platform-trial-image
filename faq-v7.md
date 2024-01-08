@@ -1,4 +1,4 @@
-# ABAP Trial Platform 1909 on Docker: Tips and Tricks <!-- omit from toc --> 
+# ABAP Trial Platform 1909 on Docker: Frequently Asked Questions (FAQs) <!-- omit from toc --> 
 
 - [1 Getting Started](#1-getting-started)
   - [Getting started: MacBook](#getting-started-macbook)
@@ -6,9 +6,7 @@
     - [Shutting down gracefully](#shutting-down-gracefully)
     - [Restarting](#restarting)
     - [Other relevant Docker commands](#other-relevant-docker-commands)
-
   - [Set up SAP GUI and log on to the system ABAP Platform 1909](#set-up-sap-gui-and-log-on-to-the-system-abap-platform-1909)
-
 - [2 Licenses](#2-licenses)
     - [ABAP Platform (AS ABAP)](#abap-platform-as-abap)
     - [HDB](#hdb)
@@ -43,9 +41,11 @@ MacBook](https://blogs.sap.com/2021/05/31/install-abap-platform-developer-editio
 
 ## Getting started: Podman
 
-If you want to use [podman](https://podman.io/) instead of docker,
-please add also the parameter *-t* to the docker run command to
-correctly forward SIGINT to the container's init process.
+If you are familiar with [podman](https://podman.io/) and want to use it instead of docker,
+please add also the parameter *-t* to the docker run command to correctly forward SIGINT to the container's init process.
+
+If you are unfamiliar with but interested in using Podman, SAP Community member [Dylan Drummond](https://people.sap.com/murmelssonic) has written this excellent detailed guide:
+[Using Podman for Abap Platform Trial container on Ubuntu Server and on amd64 MacBook](https://blogs.sap.com/2024/01/04/using-podman-for-abap-platform-trial-container-on-ubuntu-server-and-on-amd64-macbook/)
 
 
 ### Shutting down gracefully
@@ -140,11 +140,12 @@ su a4hadm
 
 **Updating the license via SAPGUI (SLICENSE)**: The ABAP license supplied with the Docker image lasts only three months. Therefore, you should download and import the demo license as follows:
 
-1. Logon to your ABAP system with the user SAP*, client 000, same password as for DEVELOPER (DEVELOPER , client 001, is locked).
+1. Logon to your ABAP system with the user SAP*, client 000, same password as for DEVELOPER (DEVELOPER/001 is locked).
 2. Start transaction SLICENSE; copy the hardware key.
-3. Get the license from minisap , choosing the system A4H.
-4. Back in your ABAP System, log off, then log on with the user DEVELOPER, client 001.
-5. Start SLICENSE again; remove the old invalid licenses. (sap* is not allowed to delete licenses).
+3. In your browser, get a new license from [minisap](https://go.support.sap.com/minisap/#/minisap), choosing the system A4H.
+4. Install the new license.
+5. Back in your ABAP System, log off, then log on with the user DEVELOPER, client 001.
+6. Start SLICENSE again; remove all the old licenses. (SAP* is not allowed to delete licenses).
 
 **Updating the license via Docker**: The image contains a script which is able to update the AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path /opt/sap/ASABAP_license. The hardware key necessary for creation of the license file is printed out during start up phase of the container.
 
