@@ -41,9 +41,11 @@ MacBook](https://blogs.sap.com/2021/05/31/install-abap-platform-developer-editio
 
 ## Getting started: Podman
 
-If you want to use [podman](https://podman.io/) instead of docker,
-please add also the parameter *-t* to the docker run command to
-correctly forward SIGINT to the container's init process.
+If you are familiar with [podman](https://podman.io/) and want to use it instead of docker,
+please add also the parameter *-t* to the docker run command to correctly forward SIGINT to the container's init process.
+
+If you are unfamiliar with but interested in using Podman, SAP Community member [Dylan Drummond](https://people.sap.com/murmelssonic) has written this excellent detailed guide:
+[Using Podman for Abap Platform Trial container on Ubuntu Server and on amd64 MacBook](https://blogs.sap.com/2024/01/04/using-podman-for-abap-platform-trial-container-on-ubuntu-server-and-on-amd64-macbook/)
 
 
 ### Shutting down gracefully
