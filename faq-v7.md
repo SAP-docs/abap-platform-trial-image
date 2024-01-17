@@ -41,6 +41,7 @@ MacBook](https://blogs.sap.com/2021/05/31/install-abap-platform-developer-editio
 
 ## Getting started: Podman
 
+
 If you are familiar with [podman](https://podman.io/) and want to use it instead of docker, please add also the parameter *-t* to the docker run command to correctly forward SIGINT to the container's init process.
 
 
