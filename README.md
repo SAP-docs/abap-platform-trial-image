@@ -26,7 +26,7 @@
 - [Primary contacts](#primary-contacts)
 
 
-<h1><a id="important">Important</a></h1>
+<h1><a id="important">Important</a></h1> 
 To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
 **DO NOT** attempt to pull the image from this page (Overview).
 
