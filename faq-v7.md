@@ -1,4 +1,4 @@
-# ABAP Trial Platform on Docker: Frequently Asked Questions (FAQs) <!-- omit from toc --> 
+# ABAP Trial Platform on Docker: Frequently Asked Questions (FAQs) <!-- omit from toc -->
 
 - [1 Getting Started](#1-getting-started)
   - [Getting started: MacBook](#getting-started-macbook)
