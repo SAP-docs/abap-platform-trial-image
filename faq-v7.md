@@ -150,9 +150,9 @@ You can check the expiry date of your ABAP license in the transaction **SLICENSE
 1. Logon to your ABAP system with the user SAP*, client 000, same password as for DEVELOPER (DEVELOPER/001 is locked).
 2. Start transaction SLICENSE; copy the hardware key.
 3. In your browser, get a new license from [minisap](https://go.support.sap.com/minisap/#/minisap), choosing the system A4H.
-4. Install the new license.
-5. Back in your ABAP System, log off, then log on with the user DEVELOPER, client 001.
-6. Start SLICENSE again; remove all the old licenses. (SAP* is not allowed to delete licenses).
+4. Back in your ABAP System, start SLICENSE again, then choose **Install**.
+5. Log off, then log on with the user DEVELOPER, client 001.
+6. If there are any remaining old licenses, remove them all. (SAP* is not allowed to delete licenses).
 
 **Updating the license via Docker**: The image contains a script which is able to update the AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path /opt/sap/ASABAP_license. The hardware key necessary for creation of the license file is printed out during start up phase of the container.
 
