@@ -5,32 +5,32 @@
   - [Linux](#linux)
   - [Windows](#windows)
   - [macOS](#macos)
-- [Installation](#installation)
-- [Run](#run)
+- [How to pull the Docker image](#installation)
+- [How to create the Docker container](#run)
     - [GNU/Linux](#gnulinux)
     - [Other](#other)
-    - [Run troubleshooting](#run-troubleshooting)
-    - [Licenses](#licenses)
-- [Connection](#connection)
+    - [Troubleshooting](#run-troubleshooting)
+    - [Stop](#stop)
+    - [Start again](#start-again)
+- [How to update the Licenses - IMPORTANT](#licenses)
+- [How to connect](#connection)
     - [SAPGUI](#sapgui)
     - [User and Passwords](#user-and-passwords)
     - [Browser](#browser)
     - [SAP Cloud Connector](#sap-cloud-connector)
 - [Additional Information](#additional-information)
-    - [Stop](#stop)
-    - [Start again](#start-again)
     - [abapGit](#abapgit)
-- [Known issues](#known-issues)
-    - [Error message when starting SAP Cloud Connector (SCC)](#error-message-when-starting-sap-cloud-connector-scc)
+- [Known Issues; Notes](#known-issues)
+    - [Slow initial start of many functions / applications](#slow-start-no-load)
+    - [Error: Shell command for retrieving PID of process bound to SCC port failed](#error-scc-shell-command-failed)
+    - [Error: Stopping Cloud Connector since port 8443](#error-scc-stop)
     - [Creating a new container](#creating-a-new-container)
 - [Primary contacts](#primary-contacts)
-
 
 
 <h1><a id="important">Important</a></h1> 
 To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
 **DO NOT** attempt to pull the image from this page (Overview).
-
 
 
 <h1><a id="before-you-pull-the-image">Before you pull the image</a></h1>
@@ -41,8 +41,6 @@ To pull the image, click on the tab **Tags** and choose the correct Docker comma
 
 <h1><a id="requirements">Requirements</a></h1>
 
-Windows and Mac users must make sure they have assigned enough resources to their Desktop Docker because their Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment. 
-
 **_Please note: We highly recommend 32GB RAM to run the ABAP Platform Trial image. The following requirements only cover the resources needed for the Docker environment itself._**
 
 <h2><a id="linux">Linux</a></h2>
@@ -51,37 +49,56 @@ Windows and Mac users must make sure they have assigned enough resources to thei
 - 16GB RAM
 - 150GB Disk
 
-<h2><a id="windows">Windows</a></h2>
-
-- 4 CPUs for Docker Desktop
-- 16GB for Docker Desktop
-- 170GB disk for Docker Desktop
-
 <h2><a id="macos">macOS</a></h2>
+Previously, ABAP Platform Trial ran on both Intel and M* processors. Since then, Apple has upgraded its iOS. Thus, on the newest iOS version, ABAP Cloud Developer Trial runs only on a Mac with an Intel processor. This is not a SAP-specific issue. 
+</p>
+Also, make sure you have assigned enough resources to your Desktop Docker because your Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment:
 
 - 4 CPUs for Docker Desktop
 - 16GB for Docker Desktop
 - 170GB disk for Docker Desktop
 
-<h1><a id="installation">Installation</a></h1>
+<h2><a id="windows">Windows</a></h2>
+The 2022 version of ABAP Cloud Developer Trial, runs on [Windows Subsystem for Linux 2 (WSL 2)](https://learn.microsoft.com/en-us/windows/wsl/). This allows you to run a Linux environment directly on Windows, unmodified, without the overhead of a virtual machine. That is, when you install Docker for Desktop:
 
-Note: To be able to start the system you must agree to SAP DEVELOPER License which will be presented to you when you start the docker container.
+1.	Choose "WSL", not "Hyper-V". 
+2.	Create a file, **`.wslconfig`**, and save it to your **< User >** folder, e.g. `C:\Users\MyUser`. Then enter the following:
 
-Before you start, please make sure you have assigned enough disk space to your Docker set up. The image has around 23GB of size when compressed and >53GB after decompressing. It would be frustrating to lose time downloading the image to only find out docker does not have enough disk space to unpack the image.
+    ```
+    [wsl2]
+    memory=20GB
+    localhostForwarding=true
+    ```
+  > **IMPORTANT**: By default, Docker assigns itself only half the available memory. Therefore, you need to specify enough memory in **`.wslconfig`**; we recommend **20GB**.
+    
+3. In order to activate the changes, you need to shut down the WSL subsystem using the following command: 
 
-To be able to successfully run the system, it's necessary to assign at least 16GB RAM to Docker Desktop.
+    ```bash
+    wsl --shutdown
+    ```
+4. Now restart Docker Desktop for Windows.
 
-The image is not available to anonymous users and therefore you must have an account in [Docker Hub](https://hub.docker.com/). To be able to pull the image you must run the command `docker login` or login via Docker Desktop at first.
+ 
+<h1><a id="installation">How to pull the Docker image</a></h1>
 
-Finally you can run the command 
-```bash
-docker pull sapse/abap-platform-trial:<TAGNAME>
-```
+1. To be able to start the system you must agree to SAP DEVELOPER License which will be presented to you when you start the docker container.
 
-<h1><a id="run">Run</a></h1>
+2. Make sure you have assigned enough disk space to your Docker set up. The image has around 23GB of size when compressed and >53GB after decompressing. It would be frustrating to lose time downloading the image to only find out docker does not have enough disk space to unpack the image.
+
+3. To be able to successfully run the system, it's necessary to assign at least 16GB RAM **to Docker Desktop**.
+
+4. The image is not available to anonymous users and therefore you must have an account in [Docker Hub](https://hub.docker.com/). To be able to pull the image you must run the command `docker login` or login via Docker Desktop at first.
+
+5. Finally you can run the command:
+
+    ```bash
+    docker pull sapse/abap-platform-trial:<TAGNAME>
+    ```
+
+<h1><a id="run">How to create a Docker container</a></h1>
 
 The system expects host name be *vhcala4hci*, all other host names will prevent the system from starting.
-Please, use the following command and watch the output carefully:
+Use the following command and watch the output carefully:
 
 <h2><a id="gnulinux">GNU/Linux</a></h2>
 
@@ -95,15 +112,16 @@ docker run --stop-timeout 3600 -it --name a4h -h vhcala4hci sapse/abap-platform-
 docker run --stop-timeout 3600 -i --name a4h -h vhcala4hci -p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001 sapse/abap-platform-trial:<TAGNAME> -skip-limits-check
 ```
 
-We start the container in interactive mode (*-i*) for being able to stop the system gracefully using the key stroke Ctrl-C. However, we also use the parameter `--stop-timeout` which causes that Docker will give the SAP HANA database (HDB) enough time to write its In-Memory database onto disk upon shutdown request.
+By default, Docker takes only 10 seconds to shut down. Therefore, we start the container in interactive mode (*-i*), so that we can stop the system gracefully using the key stroke Ctrl-C. However, we also use the parameter `--stop-timeout` which causes that Docker will give the SAP HANA database (HDB) enough time to write its In-Memory database onto disk upon shutdown request.
 
 We name the container *a4h* for easier reference in future commands.
 
-If you plan to stop and start the container to keep your changes in the system, it is recommended to also use the parameter *-agree-to-sap-license*. The parameter will make sure **you will not need to manually accept the license agreement**.
+If you plan to stop and start the container to keep your changes in the system, we recommend that you also use the parameter **_-agree-to-sap-license_**. The parameter will make sure **you will not need to manually accept the license agreement**.
 
-After all the services are successfully started, it is a good idea to wait until the CPU load goes down and the amount of used Memory stops from growing before you attempt to logon to the system.
+> After all the services are successfully started, it is a good idea to wait until the CPU load goes down and the amount of used Memory stops from growing before you attempt to logon to the system.
 
-<h2><a id="run-troubleshooting">Run troubleshooting</a></h2>
+
+<h2><a id="run-troubleshooting">Troubleshooting</a></h2>
 
 The init process of the container run checks for the correct hostname and for the Linux kernel limits.
 
@@ -111,16 +129,17 @@ In the case you want to skip the Linux kernel limits check, add the parameter `-
 
 If you used the docker run command several lines above on this page and the container exited with the following error message:
 
-```
+```bash
 Cannot continue because of insufficient system limits configuration!
+```
 
 If you want to continue without recommended limits,
 run again with the parameter -skip-limits-check
-```
+
 
 Appending the parameter `-skip-limits-check` to the run command and executing the run command again will most probably lead to a container name collision error with the following symptoms:
 
-```
+```bash
 Error response from daemon: Conflict. The container name "/a4h" is already in use by container XYZ. You have to remove (or rename) that container to be able to reuse that name..
 ```
 
@@ -128,6 +147,7 @@ That's because the first command started a container named *a4h* which immediate
 
 The following limits are checked:
 
+```bash
 - kernel.shmmax (allowed for docker run --sysctl) > 21474836480
 - kernel.shmmni (allowed for docker run --sysctl) > 32768
 - kernel.shmall (allowed for docker run --sysctl) > 5242880
@@ -137,16 +157,45 @@ The following limits are checked:
 - vm.max_map_count (must be set on the host via sysctl on GNU/Linux) > 2147483647
 - fs.file-max (must be set on the host via sysctl on GNU/Linux) > 20000000
 - fs.aio-max-nr (must be set on the host via sysctl on GNU/Linux) > 18446744073709551615
+```
 
 The limits enabled by Docker can be passed on the *docker run* command line as: 
 
+```bash
 *--sysctl kernel.shmmax=21474836480 --sysctl kernel.shmmni=32768 --sysctl kernel.shmall=5242880 --sysctl kernel.msgmni=1024 --sysctl kernel.sem="1250 256000 100 8192" --ulimit nofile=1048576:1048576*
+```
 
-The sysctl parameters which are not enabled for modification by Docker must be changed on the Docker host (on the machine where you enter the docker commands). Unfortunately only Linux users can do so and therefore **Mac and Windows users must always use the parameter _-skip-limits-check_**. We apologize for not mentioning this pseudo-requirement sooner, but we wanted to make sure you are fully aware of the fact that there are some limits which were not met and it may have negative effects.
+The `sysctl` parameters which are not enabled for modification by Docker must be changed on the Docker host (on the machine where you enter the docker commands). Unfortunately only Linux users can do so and therefore **Mac and Windows users must always use the parameter _-skip-limits-check_**. We apologize for not mentioning this pseudo-requirement sooner, but we wanted to make sure you are fully aware of the fact that there are some limits which were not met and it may have negative effects.
 
-In the case you want to skip the hostname check, add the parameter `-skip-hostname-check` to *docker run* command line.
+If you want to skip the hostname check, add the parameter `-skip-hostname-check` to *docker run* command line.
 
-<h2><a id="licenses">Licenses</a></h2>
+
+<h2><a id="stop">Stop</a></h2>
+
+We must make sure SAP HANA has enough time to write all its data into files on your disk.
+
+To stop the container gracefully, hit Ctrl-C in the command window where you started the container, or run the following command:
+
+```bash
+docker stop -t 7200 a4h
+```
+
+There is also an issue if you just shut down your laptop without running the appropriate `docker stop`. You can, however, avoid lost work by shutting down the docker container using Group Policy Editor, as described by André Fischer in his blog post:
+[How to gracefully shutdown your SAP ABAP Platform Developer Edition ...](https://community.sap.com/t5/technology-blogs-by-sap/how-to-gracefully-shutdown-your-sap-abap-platform-developer-edition-when/ba-p/13506947)
+
+<h2><a id="start-again">Start again</a></h2>
+
+You can start a stopped container via the command *docker start*. 
+
+```bash
+docker start -ai a4h
+```
+
+- `-i` = We must start it in the interactive mode to be able to respond to the possible start problems 
+- `-a` = we must "attach" to the container to be able  to see text output
+
+
+<h1><a id="licenses">How to update the licenses</a></h2>
 
 **_ABAP Platform (AS ABAP)_**
 
@@ -185,13 +234,11 @@ The image contains a script which is able to update the HDB license from the fil
 If you run into troubles with the license update script, you can prevent the container from executing this functionality by passing the parameter *-no-asabap-license-update* or by creating the file */opt/sap/.no_HDB_license_update* in the container.
 
 
-**Open Source Legal Notices**
-[Open Source Legal Notice](https://support.sap.com/content/dam/launchpad/en_us/osln/osln/73555000100900006355_20231015054035.pdf)
+**Open Source Legal Notices** 
+[Open Source Legal Notice](https://support.sap.com/content/dam/launchpad/en_us/osln/osln/73554900100900008093_20240117061308.pdf)
 
 
-<h1><a id="connection">Connection</a></h1>
-
-
+<h1><a id="connection">How to connect</a></h1>
 
 The following list defines ports used by the container:
 - 3200: SAPGUI Instance 00
@@ -221,31 +268,24 @@ Mac users must always publish the required ports because of the know Docker for 
 In the case you want run more than 1 container and you do not use GNU/Linux you can play with publish port numbers. For example you can expose the container's port 3200 as the port 3201 (*-p 3201:3200*) and then you can connect to SAPGUI with the instance number 01 instead of the default 00.
 
 
-
 <h2><a id="sapgui">SAPGUI</a></h2>
-
-
 
 1. Add a custom-specified system with the Application Server `<the container's IP>`or *localhost* if you exposed the port 3200 (i.e. `-p 3200:3200`) or *vhcala4hci* if you updated your *hosts* file. 
 2. Finally use Instance `00` and SID `A4H`.
 
-
-
 <h2><a id="user-and-passwords">User and Passwords</a></h2>
 
-
-The user name is *DEVELOPER*. 
+The user name is **DEVELOPER**.
+The client is either **001** for development or **000** for some admin tasks.
 The password is:
-- for ABAP Platform Trial 1909, initial shipment *`Htods70334`* (Note that we no longer provide this version)
-- for ABAP Platform Trial 1909, SP01 *`ABAPtr1909`*
+- ABAP Cloud Developer Trial 2022:              *`ABAPtr2022#00`*
+- ABAP Platform Trial 1909, SP01:               *`ABAPtr1909`* - Note that we will also withdraw this version in a few weeks
+- ABAP Platform Trial 1909, initial shipment:   *`Htods70334`* - Note that we no longer provide this version
 
 This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
 
 
-
 <h2><a id="browser">Browser</a></h2>
-
-
 
 Accessing the port HTTP or HTTPS services via an internet browser does not have any special requirements as long as you use the port 50000 for HTTP or the port 50001 for HTTPS and the correct host.
 
@@ -258,10 +298,7 @@ When you get redirected to your browser from SAPGUI, the URL will have host set 
 **No explicit port exposure** - append the line `<the container's IP>  vhcala4hci`
 
 
-
 <h2><a id="sap-cloud-connector">SAP Cloud Connector</a></h2>
-
-
 
 To be able to use SAP Cloud Connector, you must start an additional service via the following commands:
 
@@ -296,18 +333,17 @@ with the user *Administrator* and the password *manage*.
 <h2><a id="stop">Stop</a></h2>
 
 We must make sure SAP HANA has enough time to write all its data into files on your disk.
-To stop the container gracefully, hit Ctrl-C in the command window
-where you started the container or run the following command:
+
+To stop the container gracefully, hit Ctrl-C in the command window where you started the container, or run the following command:
 
 ```bash
 docker stop -t 7200 a4h
 ```
 
-
+There is also an issue if you just shut down your laptop without running the appropriate `docker stop`. You can, however, avoid lost work by shutting down the docker container using Group Policy Editor, as described by André Fischer in his blog post:
+[How to gracefully shutdown your SAP ABAP Platform Developer Edition ...](https://community.sap.com/t5/technology-blogs-by-sap/how-to-gracefully-shutdown-your-sap-abap-platform-developer-edition-when/ba-p/13506947)
 
 <h2><a id="start-again">Start again</a></h2>
-
-
 
 You can start a stopped container via the command *docker start*. 
 
@@ -319,38 +355,44 @@ docker start -ai a4h
 - `-a` = we must "attach" to the container to be able  to see text output
 
 
-  <h2><a id="abapgit">abapGit</a></h2>
+<h1><a id="known-issues">Known Issues; Notes</a></h1>
 
+<h2><a id="slow-start-no-load">Slow initial start of many functions / applications</a></h2>
 
- abapGit is available to download here, along with complete instructions:
+For technical reasons, we have delivered this initial shipment of SAP Cloud Developer Trial without the Load. Thus, the Load must be started on the fly. Thus, the initial start of many transactions and applications will be slower. 
 
-
-[abapGit Installation](https://docs.abapgit.org/user-guide/getting-started/install.html)
-
-Note that the report you download is named **`ZABAPGIT_STANDALONE`**.
-
-<h1><a id="known-issues">Known issues</a></h1>
-
-<h2><a id="error-message-when-starting-sap-cloud-connector-scc">Error message when starting SAP Cloud Connector (SCC)</a></h2>
+<h2><a id="error-scc-shell-command-failed">Error when starting SAP Cloud Connector (SCC): shell command for retrieving PID of process bound to SCC port failed</a></h2>
 
 ```bash
-ERROR: shell command for retrieving PID of process bound to SCC port ...java.io.IOEcception..
+ERROR: shell command for retrieving PID of process bound to SCC port failed
 ```
-The error message does not affect the functionality of SAP Cloud Connector (SCC) and will be removed in a future version of SCC.
+The error message does not affect the functionality of SAP Cloud Connector (SAP CC) and will be removed in a future version of SCC.
 
+<h2><a id="error-scc-stop"></a>stopping Cloud Connector since port 8443 appears to be used by another process</h2>
 
+Very rarely, you may get a second error:
 
+```bash
+ERROR: shell command for retrieving PID of process bound to SCC port failed — com. sap. SCC. util. ShellComm and$ExecutionException: Command lsof -i :8443 failed, caused by java.io.IOException: Cannot run lsof - execvpe failed (E NOENT - No such file or directory) 
+```
+If so, SAP Cloud Connector may not start correctly. If this happens, simply restart SAP CC; then it should work.
 
 <h2><a id="creating-a-new-container">Creating a new container </a></h2>
-
 
 Do not omit the following parameter: 
 
 ```bash
 -agree-to-sap-license 
 ```
+The script asks for the agreement, if it's missing, but you may be asked again when you stop and start the container again.
 
-The script asks for the agreement if it's missing but you probably run into a problem when you stop and start the container again. 
+<h2><a id="abapgit">abapGit</a></h2>
+
+abapGit is available to download here, along with complete instructions:
+
+[abapGit Installation](https://docs.abapgit.org/user-guide/getting-started/install.html)
+
+Note that the report you download is named **`ZABAPGIT_STANDALONE`**.
 
 <h1><a id="primary-contacts">Primary contacts</a></h1>
 
