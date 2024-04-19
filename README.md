@@ -92,7 +92,7 @@ The 2022 version of ABAP Cloud Developer Trial, runs on [Windows Subsystem for L
 5. Finally you can run the command:
 
     ```bash
-    docker pull sapse/abap-platform-trial:<TAGNAME>
+    docker pull sapse/abap-cloud-developer-trial:<TAGNAME>
     ```
 
 <h1><a id="run">How to create a Docker container</a></h1>
