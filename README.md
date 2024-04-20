@@ -388,11 +388,11 @@ The script asks for the agreement, if it's missing, but you may be asked again w
 
 <h2><a id="abapgit">abapGit</a></h2>
 
-abapGit is available to download here, along with complete instructions:
+abapGit is already installed in version 1.126.0. The program is named **`ZABAPGIT_STANDALONE`**.
 
-[abapGit Installation](https://docs.abapgit.org/user-guide/getting-started/install.html)
+If you want to upgrade to the most recent version of abapGit, follow the abapGit documentation:
 
-Note that the report you download is named **`ZABAPGIT_STANDALONE`**.
+[abapGit Upgrade](https://docs.abapgit.org/user-guide/getting-started/upgrade.html)
 
 <h1><a id="primary-contacts">Primary contacts</a></h1>
 
