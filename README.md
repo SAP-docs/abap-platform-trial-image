@@ -28,7 +28,14 @@
 - [Primary contacts](#primary-contacts)
 
 
-<h1><a id="important">Important</a></h1> 
+<h1><a id="important">Important</a></h1>
+<h2>Update 16th May, 2024: 1909 will be withdrawn!</h2>
+On Thursday, 16th May, we will have to withdraw the ABAP Platform Trial, 1909, from Docker.
+If you need this version for any reason, please make sure you have downloaded it in good time.
+
+For the latest trial version on Docker, please see here:
+[ABAP Cloud Developer Trial 2022](https://hub.docker.com/r/sapse/abap-cloud-developer-trial/tags))
+
 To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
 **DO NOT** attempt to pull the image from this page (Overview).
 
