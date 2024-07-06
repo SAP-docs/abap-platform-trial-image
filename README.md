@@ -195,7 +195,7 @@ docker start -ai a4h
 - `-a` = we must "attach" to the container to be able  to see text output
 
 
-<h1><a id="licenses">How to update the licenses</a></h2>
+<h1><a id="licenses">How to update the licenses</a></h1>
 
 **_ABAP Platform (AS ABAP)_**
 
