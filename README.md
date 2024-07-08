@@ -206,7 +206,7 @@ The ABAP license supplied with the Docker image lasts only three months. Therefo
 
 1. Logon to your ABAP system with the user SAP*, client 000, same password as for DEVELOPER (DEVELOPER , client 001, is locked).
 2. Start transaction SLICENSE; copy the hardware key.
-3. Get the license from minisap , choosing the system A4H.
+3. Get the license from [minisap](https://go.support.sap.com/minisap/#/minisap) , choosing the system A4H.
 4. Back in your ABAP System, start SLICENSE again, then choose **Install**.
 5. Log off, then log on with the user DEVELOPER, client 001.
 6. Start SLICENSE again; remove the old invalid licenses. (sap* is not allowed to delete licenses).
