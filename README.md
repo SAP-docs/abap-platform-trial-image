@@ -60,7 +60,6 @@ Many many thanks to Community member [dylan-drummond](https://community.sap.com/
 
 This is Community content, so consume at your own risk; however, this could be very helpful to many Mac users.
 </p>
-</p>p>
 Also, make sure you have assigned enough resources to your Desktop Docker because your Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment:
 
 - 4 CPUs for Docker Desktop
