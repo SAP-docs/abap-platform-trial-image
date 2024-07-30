@@ -59,7 +59,7 @@ Many many thanks to Community member [dylan-drummond](https://community.sap.com/
 [M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman ](https://community.sap.com/t5/technology-blogs-by-members/m-series-apple-chip-macbooks-and-abap-platform-trial-containers-using/ba-p/13593215)
 
 This is Community content, so consume at your own risk; however, this could be very helpful to many Mac users.
-</p>
+
 Also, make sure you have assigned enough resources to your Desktop Docker because your Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment:
 
 - 4 CPUs for Docker Desktop
@@ -203,7 +203,7 @@ docker start -ai a4h
 - `-a` = we must "attach" to the container to be able  to see text output
 
 
-<h1><a id="licenses">How to update the licenses</a></h2>
+<h1><a id="licenses">How to update the licenses</a></h1>
 
 **_ABAP Platform (AS ABAP)_**
 
