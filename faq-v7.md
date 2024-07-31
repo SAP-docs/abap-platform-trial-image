@@ -384,7 +384,7 @@ Video by Jakub Marius Kjaer:
 ## WinSCP or equivalent <!-- omit from toc --> 
 1.	Easiest: **Before running container**: Share a common folder between the docker image and the host using the `-v` flag in the `docker run`.
 
-2. Start a web server on you host PC (for example with `Xampp`) and `CURL` the files from the docker image.
+2. Start a web server on your host PC (for example with `Xampp`) and `CURL` the files from the docker image.
 
 ## Wireshark with SAP Dissectors for Ubuntu and macOS <!-- omit from toc --> 
 [Wireshark with SAP Dissectors for Ubuntu and macOS](https://blogs.sap.com/2022/06/12/wireshark-with-sap-dissectors-for-ubuntu-and-macos/)
@@ -392,7 +392,7 @@ By Dylan Drummond
 
 # 4 Errors  
 
-## Azure Container Instance, error trying to connect with <!-- omit from toc --> 
+## Error: Azure Container Instance, error trying to connect with <!-- omit from toc --> 
 
 **UPDATE, 2<sup>nd</sup> March, 2021**
 
@@ -407,12 +407,73 @@ is not guaranteed.
 *Source:
 <https://answers.sap.com/questions/13291704/deploy-abap-platform-developer-edition-1909-docker.html?childToView=13295341#comment-13295341>*
 
-## SAP Business Warehouse + AMDP: Errors <!-- omit from toc --> 
- 
+## Errors: SAP Business Warehouse + AMDP <!-- omit from toc --> 
+
 <https://twitter.com/pawelwiejkut/status/1383495200547377153> - only for
 SAP BW users using AMDPs
 
-## SAP GUI, error starting <!-- omit from toc --> 
+
+## Error: SAP HANA: HDB start problems: "Retry of log segment creation failed; Log full still active in log partition"
+
+This is a specific problem of Docker on Windows running on WSL2.
+
+All docker containers there use one WSL2 instance behind the curtain.
+All overlay filesystems use thus one virtual disk located at %LocalAppData%\Docker\wsl\data\ext4.vhdx .
+This disk is hard limited to approx 250GB. When this is reached, df -h inside a docker container will report 100% used (see screenshot above) and thus 0% available.
+
+Increasing this is a multi step process. This all is documented, however at various scattered places but not really in one place.
+
+The following steps are needed (there might be quicker ways to that, proven shortcuts are welcome):
+
+You need a WSL2 distribution besides the two docker ones, eg the default Ubuntu
+Stop all docker virtual machines. The ABAP trial container should be stopped with "docker stop -t 7200 a4h", the rest can be stopped with "wsl.exe --shutdown"
+First expand the virtual drive, either with
+diskpart, use the following steps
+run diskpart and inside diskpart, run 
+select vdisk file="%LocalAppData%\Docker\wsl\data\ext4.vhdx"
+expand vdisk maximum=<sizeInMegaBytes>
+exit
+some other means like 
+resize-vhd -Path %LocalAppData%\Docker\wsl\data\ext4.vhdx -SizeBytes 300GB
+Then increase the partition inside the virtual drive with the help of the Ubuntu distro
+Normally (eg wsl updated from the store) you should be able to mount this directly with
+wsl --mount --vhd %LocalAppData%\Docker\wsl\data\ext4.vhdx
+however this did not work for me, so I had to first mount this in Windows with powershell
+Write-Output "\\.\PhysicalDrive$((Mount-VHD -Path <pathToVHD> -PassThru | Get-Disk).Number)"
+then use the output with
+wsl --mount \\.\PhysicalDrive2
+in both cases start default distro
+wsl
+and inside the default Ubuntu first find the partition with
+mount | grep ext4
+the increase and exit with
+sudo resize2fs /dev/sdX <sizeInMegabytes>M
+exit
+then unmount depending on how you mounted either only with
+wsl --unmount --vhd %LocalAppData%\Docker\wsl\data\ext4.vhdx
+or with 
+wsl.exe --unmount \\.\PhysicalDrive2
+together with unmount from windows with
+Dismount-VHD -DiskNumber 2
+
+Thanks to WRoeckelein for this contribution.
+
+Source:
+<https://community.sap.com/t5/technology-q-a/abap-trial-2022-hdb-start-problems-log-full-still-active-in-log-partition/qaq-p/13728098>
+
+
+
+## Error: License check: SLICENSE shows red Status due to reason “not yet valid <!-- omit from toc --> 
+Cause: The Linux OS, e.g. SLES has the wrong date.
+Solution: Check the date and time of the server at OS level, in order to verify that it’s correct.
+
+That is, executecommand “date” (without quotes) **in Linux** (not Windows).
+
+The SAP system receives the time and the date from the OS. Therefore, you need to stop the system, adjust the correct system's date/time on OS level and re-start the system.
+
+If you are an SAP customer or partner, see [SAP Note 2164980](https://launchpad.support.sap.com/#/notes/0002164980) for details.
+
+## Error: SAP GUI, starting <!-- omit from toc --> 
 
 <img src="media/image5.png"
 style="width:4.22917in;height:1.58333in" />
@@ -443,19 +504,7 @@ Taken from SAP Note 429578 - How to deal with error "rabax during sapgui
 logon
 
 *Source:
-<https://blogs.sap.com/2021/02/15/sap-abap-platform-1909-developer-edition-available-soon/comment-page-1/#comment-558556>*
-
-## License check, error in <!-- omit from toc --> 
-Cause: The Linux OS, e.g. SLES has the wrong date.
-Solution: Check the date and time of the server at OS level, in order to verify that it’s correct.
-
-That is, executecommand “date” (without quotes) **in Linux** (not Windows).
-
-The SAP system receives the time and the date from the OS. Therefore, you need to stop the system, adjust the correct system's date/time on OS level and re-start the system.
-
-If you are an SAP customer or partner, see [SAP Note 2164980](https://launchpad.support.sap.com/#/notes/0002164980) for details.
-
-## Slow start in Docker Desktop, Mac / Windows <!-- omit from toc --> 
+<https://blogs.sap.com/2021/02/15/sap-abap-platform-1909-developer-edition-available-soon/comment-page-1/#comment-558556>*## Slow start in Docker Desktop, Mac / Windows <!-- omit from toc --> 
 The issue is that Docker Desktop uses a fixed amount of memory as defined in the resource config. If I want to run A4H on my MacBook then I set it to 20GB, and that's what Docker Desktop will consume on startup - even if I just want to run a tiny Kroki or Gitea system. Therefore starting up a 16GB+ Docker Desktop takes a little while if you want to run A4H on non-Linux hosts. 
 
 Secondly, A4H startup gets to a login-able state in a couple of minutes but then spends a good 10 minutes or so exercising the CPU fan by "doing stuff" (on Linux too) until it settles down. It's not really useable during this time so I consider this startup time.
@@ -467,13 +516,9 @@ After a total of 20 minutes it's fast. Once it's settled in, I can run both A4H 
 
 “Lately, I find that I have had to compress my VM Drive to keep the
 system from slowing down” or similar.
-
 This answer includes SAP Community content, so use it at your own risk.
-
 “There are several utility programs available, for example:
-
 Application Log: Delete logs in SAP (SLG2).
-
 You can also Display logs in SAP (SLG1).
 
 More information here:
