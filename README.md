@@ -214,10 +214,11 @@ The ABAP license supplied with the Docker image lasts only three months. Therefo
 
 1. Logon to your ABAP system with the user SAP*, client 000, same password as for DEVELOPER (DEVELOPER , client 001, is locked).
 2. Start transaction SLICENSE; copy the hardware key.
-3. Get the license from minisap , choosing the system A4H.
-4. Back in your ABAP System, start SLICENSE again, then choose **Install**.
-5. Log off, then log on with the user DEVELOPER, client 001.
-6. Start SLICENSE again; remove the old invalid licenses. (sap* is not allowed to delete licenses).
+3. Get the license from the following site, choosing the system A4H:
+   [SAP Licenses for Preview, Evaluation, and Demo Systems - "minisap"](https://go.support.sap.com/minisap/#/minisap)
+5. Back in your ABAP System, start SLICENSE again, then choose **Install**.
+6. Log off, then log on with the user DEVELOPER, client 001.
+7. Start SLICENSE again; remove the old invalid licenses. (sap* is not allowed to delete licenses).
 
 **Updating the license via Docker**
 The image contains a script which is able to update the AS ABAP license from the file you bind mount or copy to the container. Just save the text file onto your local file system and push it to the container at the path */opt/sap/ASABAP_license*. The hardware key necessary for creation of the license file is printed out during start up phase of the container. 
@@ -396,11 +397,10 @@ The script asks for the agreement, if it's missing, but you may be asked again w
 
 <h2><a id="abapgit">abapGit</a></h2>
 
-abapGit is available to download here, along with complete instructions:
+abapGit is already installed in version 1.126.0. The program is named **`ZABAPGIT_STANDALONE`**.
+If you want to upgrade to the most recent version of abapGit, follow the abapGit documentation:
+[abapGit Upgrade](https://docs.abapgit.org/user-guide/getting-started/upgrade.html)
 
-[abapGit Installation](https://docs.abapgit.org/user-guide/getting-started/install.html)
-
-Note that the report you download is named **`ZABAPGIT_STANDALONE`**.
 
 <h1><a id="primary-contacts">Primary contacts</a></h1>
 
