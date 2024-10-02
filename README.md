@@ -287,9 +287,9 @@ In the case you want run more than 1 container and you do not use GNU/Linux you 
 The user name is **DEVELOPER**.
 The client is either **001** for development or **000** for some admin tasks.
 The password is:
-- ABAP Cloud Developer Trial 2022:              *`ABAPtr2022#00`*
-- ABAP Platform Trial 1909, SP01:               *`ABAPtr1909`* - Note that we will also withdraw this version in a few weeks
-- ABAP Platform Trial 1909, initial shipment:   *`Htods70334`* - Note that we no longer provide this version
+- ABAP Cloud Developer Trial 2022, SP01:              *`ABAPtr2022#01`*
+- ABAP Cloud Developer Trial 2022, initial shipment:  *`ABAPtr2022#00`*
+- ABAP Platform Trial 1909, SP01:                     *`ABAPtr1909`* - Note that we will also withdraw this version in a few weeks
 
 This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
 
