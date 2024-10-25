@@ -288,14 +288,14 @@ In the case you want run more than 1 container and you do not use GNU/Linux you 
 1. Add a custom-specified system with the Application Server `<the container's IP>`or *localhost* if you exposed the port 3200 (i.e. `-p 3200:3200`) or *vhcala4hci* if you updated your *hosts* file. 
 2. Finally use Instance `00` and SID `A4H`.
 
-<h2><a id="user-and-passwords">User and Passwords</a></h2>
+<h2><a id="user-and-passwords">Users and Passwords</a></h2>
 
 The user name is **DEVELOPER**.
 The client is either **001** for development or **000** for some admin tasks.
 
 The password is:
-- ABAP Cloud Developer Trial 2022, SP01:              *`ABAPtr2022#01`*
-- ABAP Cloud Developer Trial 2022:              *`ABAPtr2022#00`*
+- ABAP Cloud Developer Trial 2022, SP01:        *`ABAPtr2022#01`*
+- ABAP Cloud Developer Trial 2022 (initial):    *`ABAPtr2022#00`* - will be withdrawn on Thursday, 31st October, 2024
 - ABAP Platform Trial 1909, SP01:               *`ABAPtr1909`* - Note that we have withdrawn this version
 
 This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
