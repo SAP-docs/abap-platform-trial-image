@@ -9,9 +9,12 @@
 - [How to create the Docker container](#run)
     - [GNU/Linux](#gnulinux)
     - [Other](#other)
-    - [Troubleshooting](#run-troubleshooting)
     - [Stop](#stop)
     - [Start again](#start-again)
+- [Troubleshooting and Support](#run-troubleshooting)
+    - [Notes](#run-troubleshooting-notes)
+    - [Support](#support)
+    - [Primary contacts](#primary-contacts)
 - [How to update the Licenses - IMPORTANT](#licenses)
 - [How to connect](#connection)
     - [SAPGUI](#sapgui)
@@ -25,7 +28,6 @@
     - [Error: Shell command for retrieving PID of process bound to SCC port failed](#error-scc-shell-command-failed)
     - [Error: Stopping Cloud Connector since port 8443](#error-scc-stop)
     - [Creating a new container](#creating-a-new-container)
-- [Primary contacts](#primary-contacts)
 
 
 <h1><a id="important">Important</a></h1> 
@@ -134,8 +136,34 @@ If you plan to stop and start the container to keep your changes in the system, 
 
 > After all the services are successfully started, it is a good idea to wait until the CPU load goes down and the amount of used Memory stops from growing before you attempt to logon to the system.
 
+<h2><a id="stop">Stop</a></h2>
 
-<h2><a id="run-troubleshooting">Troubleshooting</a></h2>
+We must make sure SAP HANA has enough time to write all its data into files on your disk.
+
+To stop the container gracefully, hit Ctrl-C in the command window where you started the container, or run the following command:
+
+```bash
+docker stop -t 7200 a4h
+```
+
+There is also an issue if you just shut down your laptop without running the appropriate `docker stop`. You can, however, avoid lost work by shutting down the docker container using Group Policy Editor, as described by André Fischer in his blog post:
+[How to gracefully shutdown your SAP ABAP Platform Developer Edition ...](https://community.sap.com/t5/technology-blogs-by-sap/how-to-gracefully-shutdown-your-sap-abap-platform-developer-edition-when/ba-p/13506947)
+
+<h2><a id="start-again">Start again</a></h2>
+
+You can start a stopped container via the command *docker start*. 
+
+```bash
+docker start -ai a4h
+```
+
+- `-i` = We must start it in the interactive mode to be able to respond to the possible start problems 
+- `-a` = we must "attach" to the container to be able  to see text output
+
+
+<h1><a id="run-troubleshooting">Troubleshooting and Support</a></h1>
+
+<h2><a id="run-troubleshooting-notes">Notes</a></h2>
 
 The init process of the container run checks for the correct hostname and for the Linux kernel limits.
 
@@ -183,30 +211,16 @@ The `sysctl` parameters which are not enabled for modification by Docker must be
 
 If you want to skip the hostname check, add the parameter `-skip-hostname-check` to *docker run* command line.
 
+<h2><a id="support">Support</a></h2>
+Since ABAP Cloud Developer Trial is a free offering for education and demo purposes only, we offer it with SAP Community support. That means that no primary support is available for this product. 
 
-<h2><a id="stop">Stop</a></h2>
+To get Community Support, please create a new question in the SAP Community - ABAP Development forum and add the user tag "#abap_trial". I will try to monitor these questions, but other experienced ABAP users / mentors also see them and often provide support.
 
-We must make sure SAP HANA has enough time to write all its data into files on your disk.
+<h2><a id="primary-contacts">Primary contacts</a></h2>
 
-To stop the container gracefully, hit Ctrl-C in the command window where you started the container, or run the following command:
-
-```bash
-docker stop -t 7200 a4h
-```
-
-There is also an issue if you just shut down your laptop without running the appropriate `docker stop`. You can, however, avoid lost work by shutting down the docker container using Group Policy Editor, as described by André Fischer in his blog post:
-[How to gracefully shutdown your SAP ABAP Platform Developer Edition ...](https://community.sap.com/t5/technology-blogs-by-sap/how-to-gracefully-shutdown-your-sap-abap-platform-developer-edition-when/ba-p/13506947)
-
-<h2><a id="start-again">Start again</a></h2>
-
-You can start a stopped container via the command *docker start*. 
-
-```bash
-docker start -ai a4h
-```
-
-- `-i` = We must start it in the interactive mode to be able to respond to the possible start problems 
-- `-a` = we must "attach" to the container to be able  to see text output
+- [Julie Plummer](mailto:julie.plummer@sap.com)
+- [Ralf Henning](mailto:ralf.henning@sap.com)
+- [Jakub Filak](mailto:jakub.filak@sap.com)
 
 
 <h1><a id="licenses">How to update the licenses</a></h1>
@@ -408,9 +422,3 @@ abapGit is already installed in version 1.126.0. The program is named **`ZABAPGI
 If you want to upgrade to the most recent version of abapGit, follow the abapGit documentation:
 [abapGit Upgrade](https://docs.abapgit.org/user-guide/getting-started/upgrade.html)
 
-
-<h1><a id="primary-contacts">Primary contacts</a></h1>
-
-- [Julie Plummer](mailto:julie.plummer@sap.com)
-- [Ralf Henning](mailto:ralf.henning@sap.com)
-- [Jakub Filak](mailto:jakub.filak@sap.com)
