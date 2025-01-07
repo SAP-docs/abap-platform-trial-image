@@ -1,6 +1,5 @@
 
 - [**Important**:](#important)
-- [Before you pull the image](#before-you-pull-the-image)
 - [Requirements](#requirements)
   - [Linux](#linux)
   - [Windows](#windows)
@@ -30,9 +29,16 @@
     - [Creating a new container](#creating-a-new-container)
 
 
-<h1><a id="important">Important</a></h1> 
-To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
+<h1><a id="support">Important</a></h1>
+
+> [!WARNING] 
+**WARNING**: To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
 **DO NOT** attempt to pull the image from this page (Overview).
+
+> [!IMPORTANT] 
+**IMPORTANT**: Since ABAP Cloud Developer Trial is a free offering for education and demo purposes only, we offer it with SAP Community support. That means that no primary support is available for this product. 
+To get Community Support, please create a new question in the SAP Community - go to [SAP Community - ABAP Development Forum](https://community.sap.com/t5/forums/postpage/choose-node/true/product-id/833755570260738661924709785639136/board-id/technology-questions) 
+and add the user tag "#abap_trial". I will try to monitor these questions, but other experienced ABAP users / mentors also see them and often provide support.
 
 
 <h1><a id="before-you-pull-the-image">Before you pull the image</a></h1>
@@ -210,11 +216,6 @@ The limits enabled by Docker can be passed on the *docker run* command line as:
 The `sysctl` parameters which are not enabled for modification by Docker must be changed on the Docker host (on the machine where you enter the docker commands). Unfortunately only Linux users can do so and therefore **Mac and Windows users must always use the parameter _-skip-limits-check_**. We apologize for not mentioning this pseudo-requirement sooner, but we wanted to make sure you are fully aware of the fact that there are some limits which were not met and it may have negative effects.
 
 If you want to skip the hostname check, add the parameter `-skip-hostname-check` to *docker run* command line.
-
-<h2><a id="support">Support</a></h2>
-Since ABAP Cloud Developer Trial is a free offering for education and demo purposes only, we offer it with SAP Community support. That means that no primary support is available for this product. 
-
-To get Community Support, please create a new question in the SAP Community - ABAP Development forum and add the user tag "#abap_trial". I will try to monitor these questions, but other experienced ABAP users / mentors also see them and often provide support.
 
 <h2><a id="primary-contacts">Primary contacts</a></h2>
 
