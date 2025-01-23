@@ -2,6 +2,17 @@
 
 Found a mistake in our documentation? Always wanted to change some description
 or add a step in one of our procedures that could save many others much time?
+ABAP Cloud Developer Trial (and its previous incarnations, ABAP Platform Trial and SAP AS ABAP 7.x, Developer Edition) has always thrived on contributions from SAP Community.
+
+If you have:
+
+ - Found a mistake in our documentation?
+ - Always wanted to change some description/ or add a step in one of our procedures
+ - Done something cool (with ABAP Trial, that is), which you want to share...
+... then please submit your feedback to the FAQs file via a pull request. I will monitor this repo and add wherever possible:
+
+   [ABAP Cloud Developer Trial: Frequently Asked Questions (FAQs)](https://github.com/julieplummer20/abap-platform-trial-image/blob/main/faq-v7.md)
+
 
 ## Requirements
 
