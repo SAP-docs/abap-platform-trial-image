@@ -1,0 +1,10 @@
+version = 1
+SPDX-PackageName = "abap-platform-trial-image"
+SPDX-PackageSupplier = "Jakub Filak (jakub.filak@sap.com)"
+SPDX-PackageDownloadLocation = "https://github.com/SAP-docs/abap-platform-trial-image"
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2023 SAP SE or an SAP affiliate company and SAP-docs/abap-platform-trial-image contributors"
+SPDX-License-Identifier = "CC-BY-4.0"
