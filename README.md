@@ -58,15 +58,19 @@ and add the user tag "#abap_trial". I will try to monitor these questions, but o
 - 150GB Disk
 
 <h2><a id="macos">macOS</a></h2>
-Previously, ABAP Platform Trial ran on both Intel and M* processors. Since then, Apple has upgraded its iOS. Thus, on the newest iOS version, ABAP Cloud Developer Trial runs only on a Mac with an Intel processor. This is not a SAP-specific issue. So for now, you have two options:
+We have successfully tested ABAP Cloud Developer Trial with the following setup:
+•	Apple MacBook M2 Pro (Apple Silicone)
+•	32GB RAM
+•	macOS Sequoia 15.5
+•	DockerDesktop 4.41.2
+•	Docker Engine 28.1.1
 
-Run Docker Desktop with a MacBook that has an Intel processor.
-Use the UTM app to emulate an AMD64 Linux distro via Apple QEMU.
-Many many thanks to Community member [dylan-drummond](https://community.sap.com/t5/user/viewprofilepage/user-id/197587) for researching this. Dylan has written an exhaustive guide to this: 
+Therefore, it appears that ABAP Cloud Developer Trial runs on both AMD  and M*-Series processors, provided you have installed the newest version of macOS. 
+(On some older versions of iOS, ABAP Cloud Developer Trial only ran on a Mac with an Intel processor, not an M*-Series processor.)
+Many many thanks to Community members [Dylan Drummond](https://community.sap.com/t5/user/viewprofilepage/user-id/197587) and [Tom Hoepping](https://community.sap.com/t5/user/viewprofilepage/user-id/6300) for testing this and bringing it to my attention. 
 
+Dylan has written an exhaustive guide to this: 
 [M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman ](https://community.sap.com/t5/technology-blogs-by-members/m-series-apple-chip-macbooks-and-abap-platform-trial-containers-using/ba-p/13593215)
-
-This is Community content, so consume at your own risk; however, this could be very helpful to many Mac users.
 
 Also, make sure you have assigned enough resources to your Desktop Docker because your Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment:
 
