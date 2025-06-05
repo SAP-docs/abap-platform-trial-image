@@ -288,6 +288,8 @@ For your convenience, here is the string exposing all relevant ports which you c
 
 `-p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001`
 
+Depending on your use case, you need to expose other ports. Check [TCP/IP Ports of All SAP Products](https://help.sap.com/docs/Security/575a9f0e56f34c6e8138439eefc32b16/616a3c0b1cc748238de9c0341b15c63c.html) and set "Product Name" to "Application Server ABAP" and "SAP HANA Platform" to see a complete list of relevant ports.
+
 If you run into the need to expose too many ports, you can consider using `--net=host` instead of exposing ports one by one but the option will cause that all container's port will be available outside the docker host and you will not be able to start another such container. Unfortunately, it appears that this option is available to GNU/Linux users only.
 
 Please, do not use the parameter *-P* (the capitalized P, case matters) because that exposes container ports on random host ports and many SAP clients requires exact ports which cannot be changed (e.g. if the container's port 3200 is exposed as the port 54356, as far as we know you will not be able to configure SAPGUI for Windows to connect to that port).
