@@ -313,12 +313,10 @@ The user name is **DEVELOPER**.
 The client is either **001** for development or **000** for some admin tasks.
 
 The password is:
-- ABAP Cloud Developer Trial 2022, SP01:              *`ABAPtr2022#01`*
-- ABAP Cloud Developer Trial 2022:              *`ABAPtr2022#00`*
-- ABAP Platform Trial 1909, SP01:               *`ABAPtr1909`* - Note that we have withdrawn this version
+- ABAP Cloud Developer Trial 2023, SP00:        *`ABAPtr2023#00`*
+- ABAP Cloud Developer Trial 2022, SP01:        *`ABAPtr2022#01`*
 
 This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
-
 
 <h2><a id="browser">Browser</a></h2>
 
