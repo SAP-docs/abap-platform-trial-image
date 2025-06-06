@@ -238,7 +238,6 @@ Great to see people getting stuck in with the new Trial
 [SAP ABAP Platform 1909, Developer Edition: Day 1 Experience and Tips and Tricks](https://blogs.sap.com/2021/02/16/sap-abap-platform-1909-developer-edition-day-1-experience-and-tips-and-tricks/)
 
 
-
 ## Enhancing your Developer Edition – Community Blog Post from 2019<!-- omit from toc --> 
 “…Interesting things how you can either enhance, tune, make more
 advanced and similar sort of things to your SAP NetWeaver Application Server ABAP Developer edition” 
@@ -270,6 +269,22 @@ There is a useful collection of projects here:
 
 See this blog post for more information: *Source:
 <https://blogs.sap.com/2021/02/24/adding-languages-to-sap-abap-platform-1909-developer-edition-for-multilingual-development>*
+
+
+## M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman
+SAP Community member [Dylan Drummond](https://people.sap.com/murmelssonic) has written this excellent detailed guide (yes, one of several):
+[M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman](https://community.sap.com/t5/technology-blogs-by-members/m-series-apple-chip-macbooks-and-abap-platform-trial-containers-using/ba-p/13593215).
+
+It also includes lots of tips in the comments, including this one:
+At spin-up time, it can be a good idea to include the message-server standard port 3601 as part of the docker run or podman run command. Myself I always include it, but I suppose it is not part of the standard instructions... anyway the addition is:
+
+```Linux
+-p 3601:3601
+```
+
+Unfortunately, without a lot of trickery we won't go into here, it's not easily possible to ensure this port-forwarding works later.
+
+
 
 ## Persistence: How is the data in the ABAP container persisted? <!-- omit from toc -->
 
