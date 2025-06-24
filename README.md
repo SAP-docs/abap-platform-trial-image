@@ -118,7 +118,7 @@ Also, make sure you have assigned enough resources to your Desktop Docker:
 5. Finally you can run the command:
 
     ```bash
-    docker pull sapse/abap-cloud-developer-trial:<TAGNAME>
+    docker pull sapse/abap-cloud-developer-trial:2023
     ```
 
 <h1><a id="run">How to create a Docker container</a></h1>
@@ -129,13 +129,13 @@ Use the following command and watch the output carefully:
 <h2><a id="gnulinux">GNU/Linux</a></h2>
 
 ```bash
-docker run --stop-timeout 3600 -it --name a4h -h vhcala4hci sapse/abap-cloud-developer-trial:<TAGNAME>
+docker run --stop-timeout 3600 -it --name a4h -h vhcala4hci sapse/abap-cloud-developer-trial:2023
 ```
 
 <h2><a id="other">Other</a></h2>
 
 ```bash
-docker run --stop-timeout 3600 -i --name a4h -h vhcala4hci -p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001 sapse/abap-cloud-developer-trial:<TAGNAME> -skip-limits-check
+docker run --stop-timeout 3600 -i --name a4h -h vhcala4hci -p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001 sapse/abap-cloud-developer-trial:2023 -skip-limits-check
 ```
 
 By default, Docker takes only 10 seconds to shut down. Therefore, we start the container in interactive mode (*-i*), so that we can stop the system gracefully using the key stroke Ctrl-C. However, we also use the parameter `--stop-timeout` which causes that Docker will give the SAP HANA database (HDB) enough time to write its In-Memory database onto disk upon shutdown request.
