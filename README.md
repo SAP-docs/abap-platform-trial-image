@@ -47,14 +47,14 @@
 
 <h2><a id="macos">macOS</a></h2>
 We have successfully tested ABAP Cloud Developer Trial with the following setup:
-•	Apple MacBook M2 Pro (Apple Silicone)
+•	Apple MacBook M2 Pro (Apple Silicon)
 •	32GB RAM
 •	macOS Sequoia 15.5
 •	DockerDesktop 4.41.2
 •	Docker Engine 28.1.1
 
 Therefore, it appears that ABAP Cloud Developer Trial runs on both AMD  and M*-Series processors, provided you have installed the newest version of macOS. 
-(On some older versions of iOS, ABAP Cloud Developer Trial only ran on a Mac with an Intel processor, not an M*-Series processor.)
+(On some older versions of macOS, ABAP Cloud Developer Trial only ran on a Mac with an Intel processor, not an M*-Series processor.)
 Many many thanks to Community members [Dylan Drummond](https://community.sap.com/t5/user/viewprofilepage/user-id/197587) and [Tom Hoepping](https://community.sap.com/t5/user/viewprofilepage/user-id/6300) for testing this and bringing it to my attention. 
 
 Dylan has written an exhaustive guide to this: 
