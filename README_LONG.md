@@ -5,21 +5,41 @@
   - [Windows](#windows)
   - [macOS](#macos)
 - [How to pull the Docker image](#installation)
+- [How to create and run the Docker container - using docker run](#run)
+    - [GNU/Linux](#gnulinux)
+    - [Other](#other)
+    - [Stop](#stop)
+    - [Start again](#start-again)
 - [How to create and run the Docker container](#run)
 - [Troubleshooting and Support](#run-troubleshooting)
+    - [Notes](#run-troubleshooting-notes)
+    - [Support](#support)
+    - [Primary contacts](#primary-contacts)
 - [How to update the Licenses - IMPORTANT](#licenses)
 - [How to connect](#connection)
+    - [SAPGUI](#sapgui)
+    - [User and Passwords](#user-and-passwords)
+    - [Browser](#browser)
+    - [SAP Cloud Connector](#sap-cloud-connector)
 - [Additional Information](#additional-information)
+    - [abapGit](#abapgit)
 - [Known Issues; Notes](#known-issues)
+    - [Slow initial start of many functions / applications](#slow-start-no-load)
+    - [Error: Shell command for retrieving PID of process bound to SCC port failed](#error-scc-shell-command-failed)
+    - [Error: Stopping Cloud Connector since port 8443](#error-scc-stop)
+    - [Creating a new container](#creating-a-new-container)
 
-<h1><a id="support">Important</a></h1> 
 
-> NOTE: To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
+<h1><a id="support">Important</a></h1>
+
+> [!WARNING] 
+> To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
 > **DO NOT** attempt to pull the image from this page (Overview).
 
-> IMPORTANT: Since ABAP Cloud Developer Trial is a free offering for education and demo purposes only, we offer it with SAP Community support. That means that no primary support is available for this product. 
-> 
-> To get Community Support, create a new question in the SAP Community - go to [SAP Community - ABAP Development Forum](https://community.sap.com/t5/forums/postpage/choose-node/true/product-id/833755570260738661924709785639136/> board-id/technology-questions) and add the user tag "#abap_trial". I will try to monitor these questions, but other experienced ABAP users / mentors also see them and often provide support.
+> [!IMPORTANT] 
+Since ABAP Cloud Developer Trial is a free offering for education and demo purposes only, we offer it with SAP Community support. That means that no primary support is available for this product. 
+To get Community Support, create a new question in the SAP Community - go to [SAP Community - ABAP Development Forum](https://community.sap.com/t5/forums/postpage/choose-node/true/product-id/833755570260738661924709785639136/board-id/technology-questions) 
+and add the user tag "#abap_trial". I will try to monitor these questions, but other experienced ABAP users / mentors also see them and often provide support.
 
 
 <h1><a id="before-you-pull-the-image">Before you pull the image</a></h1>
@@ -30,13 +50,14 @@
 
 <h1><a id="requirements">Requirements</a></h1>
 
-> NOTE: We highly recommend 32GB RAM to run the ABAP Platform Trial image. The following requirements only cover the resources needed for the Docker environment itself.
+> [!NOTE] 
+> We strongly recommend 32GB RAM to run the ABAP Platform Trial image. The following requirements only cover the resources needed for the Docker environment itself.
 
 <h2><a id="linux">Linux</a></h2>
 
 - 4 CPUs
 - 16GB RAM
-- 150GB Disk
+- 150GB Disk 
 
 <h2><a id="macos">macOS</a></h2>
 We have successfully tested ABAP Cloud Developer Trial with the following setup:
@@ -70,7 +91,8 @@ The 2022 version of ABAP Cloud Developer Trial, runs on [Windows Subsystem for L
     memory=24GB
     localhostForwarding=true
     ```
-> IMPORTANT: By default, Docker assigns itself only half the available memory. Therefore, you need to specify enough memory in **`.wslconfig`**; we recommend **24GB**.
+> [!IMPORTANT] 
+  > **IMPORTANT**: By default, Docker assigns itself only half the available memory. Therefore, you need to specify enough memory in **`.wslconfig`**; we recommend **24GB**.
     
 3. In order to activate the changes, you need to shut down the WSL subsystem using the following command: 
 
@@ -119,7 +141,8 @@ docker run --stop-timeout 3600 -it --name a4h -h vhcala4hci sapse/abap-cloud-dev
 docker run --stop-timeout 3600 -i --name a4h -h vhcala4hci -p 3200:3200 -p 3300:3300 -p 8443:8443 -p 30213:30213 -p 50000:50000 -p 50001:50001 sapse/abap-cloud-developer-trial:<TAGNAME> -skip-limits-check
 ```
 
-> TIP: In some cases, your Hardware Key may stop working at some point. This may be because the IP address of the container is stable but the MAC address has changed since your last login. If so, add a stable MAC address to your docker run command as in the following example, replacing the placeholder `02:42:ac:11:00:11` with your own MAC address:
+> [!TIP] 
+> In some cases, your Hardware Key may stop working at some point. This may be because the IP address of the container is stable but the MAC address has changed since your last login. If so, add a stable MAC address to your docker run command as in the following example, replacing the placeholder `02:42:ac:11:00:11` with your own MAC address:
 > 
 > ```
 > docker run --mac-address 02:42:ac:11:00:11 my_container
@@ -163,14 +186,17 @@ docker start -ai a4h
 
 <h2><a id="run-troubleshooting-notes">Notes</a></h2>
 
-The init process of the container run checks for the correct hostname and for the Linux kernel limits. If you want to skip the Linux kernel limits check add the parameter `-skip-limits-check` to *docker run* command line you can find above.
+The init process of the container run checks for the correct hostname and for the Linux kernel limits. If you want to skip the Linux kernel limits check, add the parameter `-skip-limits-check` to *docker run* command line you can find above.
 
 If you used the docker run command several lines above on this page and the container exited with the following error message:
 
 ```bash
 Cannot continue because of insufficient system limits configuration!
 ```
-and if you want to continue without recommended limits, run again with the parameter -skip-limits-check
+
+If you want to continue without recommended limits,
+run again with the parameter -skip-limits-check
+
 
 Appending the parameter `-skip-limits-check` to the run command and executing the run command again will most probably lead to a container name collision error with the following symptoms:
 
@@ -274,7 +300,7 @@ If you run into the need to expose too many ports, you can consider using `--net
 
 Do not use the parameter *-P* (the capitalized P, case matters) because that exposes container ports on random host ports and many SAP clients requires exact ports which cannot be changed (e.g. if the container's port 3200 is exposed as the port 54356, as far as we know you will not be able to configure SAPGUI for Windows to connect to that port).
 
-If you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TCP/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Self-study materials:
+In the case you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TCP/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Self-study materials:
 - https://docs.docker.com/docker-for-windows/networking/
 - https://github.com/docker/for-win/issues/221
 
@@ -371,18 +397,18 @@ docker start -ai a4h
 
 <h1><a id="known-issues">Known Issues; Notes</a></h1>
 
-<h2>Slow initial start of many functions / applications</a></h2>
+<h2><a id="slow-start-no-load">Slow initial start of many functions / applications</a></h2>
 
 For technical reasons, we have delivered this initial shipment of SAP Cloud Developer Trial without the Load. Thus, the Load must be started on the fly. Thus, the initial start of many transactions and applications will be slower. 
 
-<h2>Error when starting SAP Cloud Connector (SCC): shell command for retrieving PID of process bound to SCC port failed</a></h2>
+<h2><a id="error-scc-shell-command-failed">Error when starting SAP Cloud Connector (SCC): shell command for retrieving PID of process bound to SCC port failed</a></h2>
 
 ```bash
 ERROR: shell command for retrieving PID of process bound to SCC port failed
 ```
-The error message does not affect the functions of SAP Cloud Connector (SAP CC) and will be removed in a future version of SCC.
+The error message does not affect SAP Cloud Connector (SCC) functions and will be removed in a future version of SCC.
 
-<h2>stopping Cloud Connector since port 8443 appears to be used by another process</h2>
+<h2><a id="error-scc-stop"></a>stopping Cloud Connector since port 8443 appears to be used by another process</h2>
 
 Very rarely you may get a second error:
 
@@ -399,3 +425,5 @@ Do not omit the following parameter:
 -agree-to-sap-license 
 ```
 The script asks for the agreement, if it's missing, but you may be asked again when you stop and start the container again.
+
+  +
