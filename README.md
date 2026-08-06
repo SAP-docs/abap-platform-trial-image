@@ -60,7 +60,7 @@ Also, make sure you have assigned enough resources to your Desktop Docker becaus
 - 170GB disk for Docker Desktop
 
 <h2><a id="windows">Windows</a></h2>
-The 2022 version of ABAP Cloud Developer Trial, runs on [Windows Subsystem for Linux 2 (WSL 2)](https://learn.microsoft.com/en-us/windows/wsl/). This allows you to run a Linux environment directly on Windows, unmodified, without the overhead of a virtual machine. That is, when you install Docker for Desktop:
+The 2025 version of ABAP Cloud Developer Trial, runs on [Windows Subsystem for Linux 2 (WSL 2)](https://learn.microsoft.com/en-us/windows/wsl/). This allows you to run a Linux environment directly on Windows, unmodified, without the overhead of a virtual machine. That is, when you install Docker for Desktop:
 
 1.	Choose "WSL", not "Hyper-V". 
 2.	Create a file, **`.wslconfig`**, and save it to your **< User >** folder, e.g. `C:\Users\MyUser`. Then enter the following:
@@ -295,8 +295,7 @@ The user name is **DEVELOPER**.
 The client is either **001** for development or **000** for some admin tasks.
 
 The password is:
-- ABAP Cloud Developer Trial 2023, SP00:        *`ABAPtr2023#00`*
-- ABAP Cloud Developer Trial 2022, SP01:        *`ABAPtr2022#01`*
+- ABAP Cloud Developer Trial 2025, SP00:        *`ABAPtr2025#00`*
 
 This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
 
