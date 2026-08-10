@@ -32,6 +32,7 @@
 
 > NOTE: We highly recommend 32GB RAM to run the ABAP Platform Trial image. The following requirements only cover the resources needed for the Docker environment itself.
 
+
 <h2><a id="linux">Linux</a></h2>
 
 - 4 CPUs
@@ -39,28 +40,18 @@
 - 150GB Disk
 
 <h2><a id="macos">macOS</a></h2>
-We have successfully tested ABAP Cloud Developer Trial with the following setup:
-•	Apple MacBook M2 Pro (Apple Silicone)
-•	32GB RAM
-•	macOS Sequoia 15.5
-•	DockerDesktop 4.41.2
-•	Docker Engine 28.1.1
-
-Therefore, it appears that ABAP Cloud Developer Trial runs on both AMD  and M*-Series processors, provided you have installed the newest version of macOS. 
-(On some older versions of iOS, ABAP Cloud Developer Trial only ran on a Mac with an Intel processor, not an M*-Series processor.)
-Many many thanks to Community members [Dylan Drummond](https://community.sap.com/t5/user/viewprofilepage/user-id/197587) and [Tom Hoepping](https://community.sap.com/t5/user/viewprofilepage/user-id/6300) for testing this and bringing it to my attention. 
-
-Dylan has written an exhaustive guide to this: 
-[M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman ](https://community.sap.com/t5/technology-blogs-by-members/m-series-apple-chip-macbooks-and-abap-platform-trial-containers-using/ba-p/13593215)
-
-Also, make sure you have assigned enough resources to your Desktop Docker because your Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment:
+Make sure you have assigned enough resources to your Desktop Docker because your Docker runs in a VM which contains GNU/Linux and that underlying VM does not share hardware resources with the host machine without explicit assignment:
 
 - 4 CPUs for Docker Desktop
 - 16GB for Docker Desktop
 - 170GB disk for Docker Desktop
 
+Also, Community member [Dylan Drummond](https://community.sap.com/t5/user/viewprofilepage/user-id/197587) has written an exhaustive guide to this: 
+[M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman ](https://community.sap.com/t5/technology-blogs-by-members/m-series-apple-chip-macbooks-and-abap-platform-trial-containers-using/ba-p/13593215)
+
+
 <h2><a id="windows">Windows</a></h2>
-The 2022 version of ABAP Cloud Developer Trial, runs on [Windows Subsystem for Linux 2 (WSL 2)](https://learn.microsoft.com/en-us/windows/wsl/). This allows you to run a Linux environment directly on Windows, unmodified, without the overhead of a virtual machine. That is, when you install Docker for Desktop:
+From 2022 onwards, ABAP Cloud Developer Trial runs on [Windows Subsystem for Linux 2 (WSL 2)](https://learn.microsoft.com/en-us/windows/wsl/). This allows you to run a Linux environment directly on Windows, unmodified, without the overhead of a virtual machine. That is, when you install Docker for Desktop:
 
 1.	Choose "WSL", not "Hyper-V". 
 2.	Create a file, **`.wslconfig`**, and save it to your **< User >** folder, e.g. `C:\Users\MyUser`. Then enter the following:
@@ -275,8 +266,7 @@ If you run into the need to expose too many ports, you can consider using `--net
 Do not use the parameter *-P* (the capitalized P, case matters) because that exposes container ports on random host ports and many SAP clients requires exact ports which cannot be changed (e.g. if the container's port 3200 is exposed as the port 54356, as far as we know you will not be able to configure SAPGUI for Windows to connect to that port).
 
 If you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TCP/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Self-study materials:
-- https://docs.docker.com/docker-for-windows/networking/
-- https://github.com/docker/for-win/issues/221
+- [Networking on Docker Desktop](https://docs.docker.com/desktop/features/networking/)
 
 Mac users must always publish the required ports because of the know Docker for Mac limitations:
 - https://docs.docker.com/docker-for-mac/networking/#known-limitations-use-cases-and-workarounds
@@ -295,8 +285,7 @@ The user name is **DEVELOPER**.
 The client is either **001** for development or **000** for some admin tasks.
 
 The password is:
-- ABAP Cloud Developer Trial 2023, SP00:        *`ABAPtr2023#00`*
-- ABAP Cloud Developer Trial 2022, SP01:        *`ABAPtr2022#01`*
+- ABAP Cloud Developer Trial 2025, ISS:        *`ABAPtr2025#00`*
 
 This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
 
