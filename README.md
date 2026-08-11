@@ -285,7 +285,7 @@ The user name is **DEVELOPER**.
 The client is either **001** for development or **000** for some admin tasks.
 
 The password is:
-- ABAP Cloud Developer Trial 2025, ISS:        *`ABAPtr2025#00`*
+- ABAP Cloud Developer Trial 2025, ISS:        *`ABAPtr2025#SP00`*
 
 This is also predefined (same password) for client 000, client 001:  SAP* , DDIC.
 
