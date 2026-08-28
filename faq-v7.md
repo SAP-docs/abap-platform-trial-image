@@ -241,7 +241,7 @@ Great to see people getting stuck in with the new Trial
 ## Enhancing your Developer Edition – Community Blog Post from 2019<!-- omit from toc --> 
 “…Interesting things how you can either enhance, tune, make more
 advanced and similar sort of things to your SAP NetWeaver Application Server ABAP Developer edition” 
-– again, this is from an older edition, but still very interesting collection by Martin Marushkin (Twitter: [MartinMar](https://twitter.com/softy012)), some basic, some quite advanced. Just one small point: In 1909, abapGit is automatically installed and SAP Flight Reference Scenario automatically pre-delivered , so no need to repeat sections 4 and 5:
+– again, this is from an older edition, but still very interesting collection by Martin Maruskin (Twitter: [MartinMar](https://twitter.com/softy012)), some basic, some quite advanced. Just one small point: In 1909, abapGit is automatically installed and SAP Flight Reference Scenario automatically pre-delivered , so no need to repeat sections 4 and 5:
 
 [Power up your SAP NetWeaver Application Server ABAP Developer
 edition](https://blog.maruskin.eu/2019/11/power-up-your-sap-netweaver-application.html)
