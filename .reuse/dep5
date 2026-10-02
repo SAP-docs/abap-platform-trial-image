@@ -1,8 +1,0 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: abap-platform-trial-image
-Upstream-Contact: Jakub Filak (jakub.filak@sap.com)
-Source: https://github.com/SAP-docs/abap-platform-trial-image
-
-Files: *
-Copyright:  2023 SAP SE or an SAP affiliate company and SAP-docs/abap-platform-trial-image contributors
-License: CC-BY-4.0
