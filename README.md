@@ -206,9 +206,9 @@ If you want to skip the hostname check, add the parameter `-skip-hostname-check`
 
 **_ABAP Platform (AS ABAP)_**
 
-You can check the expiry date of your ABAP license in the transaction **SLICENSE** in SAPGUI. You may wish to set a reminder to update your license, since it is easier to do so before expiry.
+You can check the expiry date of your ABAP license in the transaction **SLICENSE** in SAP GUI. You may wish to set a reminder to update your license, since it is easier to do so before expiry.
 
-**Updating the license via SAPGUI (SLICENSE)** 
+**Updating the license via SAP GUI (SLICENSE)** 
 The ABAP license supplied with the Docker image lasts only three months. Therefore, you should download and import the demo license as follows:
 
 1. Logon to your ABAP system with the user SAP*, client 000, same password as for DEVELOPER (DEVELOPER , client 001, is locked).
@@ -248,14 +248,14 @@ If you run into trouble with the license update script, you can prevent the cont
 <h1><a id="connection">How to connect</a></h1>
 
 The following list defines ports used by the container:
-- 3200: SAPGUI Instance 00
+- 3200: SAP GUI Instance 00
 - 3300: RFC Instance 00
 - 8443: SAP Cloud Connector
 - 30213: SAP HANA MDC Database
 - 50000: AS ABAP HTTP
 - 50001: AS ABAP HTTPS
 
-If you need to access the container outside the docker host (from a different machine or a VM) or you are not lucky enough to run GNU/Linux, expose the ports using the parameter *-p* (the lower case p, case matters) (e.g. for SAPGUI add the following to docker run command: `-p 3200:3200`).
+If you need to access the container outside the docker host (from a different machine or a VM) or you are not lucky enough to run GNU/Linux, expose the ports using the parameter *-p* (the lower case p, case matters) (e.g. for SAP GUI add the following to docker run command: `-p 3200:3200`).
 
 For your convenience, here is the string exposing all relevant ports which you can copy and paste to your docker run command:
 
@@ -263,7 +263,7 @@ For your convenience, here is the string exposing all relevant ports which you c
 
 If you run into the need to expose too many ports, you can consider using `--net=host` instead of exposing ports one by one but the option will cause that all container's port will be available outside the docker host and you will not be able to start another such container. Unfortunately, it appears that this option is available to GNU/Linux users only.
 
-Do not use the parameter *-P* (the capitalized P, case matters) because that exposes container ports on random host ports and many SAP clients requires exact ports which cannot be changed (e.g. if the container's port 3200 is exposed as the port 54356, as far as we know you will not be able to configure SAPGUI for Windows to connect to that port).
+Do not use the parameter *-P* (the capitalized P, case matters) because that exposes container ports on random host ports and many SAP clients requires exact ports which cannot be changed (e.g. if the container's port 3200 is exposed as the port 54356, as far as we know you will not be able to configure SAP GUI for Windows to connect to that port).
 
 If you are on Windows and you want to connect to the containers IP directly without the need to expose the ports with the parameter *-p*, you may need to update their IP routes to get their TCP/IP packets correctly routed from their host machine to the docker container (which is running in a virtualized GNU/Linux). Self-study materials:
 - [Networking on Docker Desktop](https://docs.docker.com/desktop/features/networking/)
@@ -271,13 +271,19 @@ If you are on Windows and you want to connect to the containers IP directly with
 Mac users must always publish the required ports because of the know Docker for Mac limitations:
 - https://docs.docker.com/docker-for-mac/networking/#known-limitations-use-cases-and-workarounds
 
-In the case you want run more than 1 container and you do not use GNU/Linux you can play with publish port numbers. For example you can expose the container's port 3200 as the port 3201 (*-p 3201:3200*) and then you can connect to SAPGUI with the instance number 01 instead of the default 00.
+If you want to run more than 1 container and you do not use GNU/Linux, you can play with published port numbers. For example you can expose the container's port 3200 as the port 3201 (*-p 3201:3200*) and then you can connect to SAP GUI with the instance number 01 instead of the default 00.
 
-
-<h2><a id="sapgui">SAPGUI</a></h2>
+<h2><a id="sapgui">SAP GUI</a></h2>
+You can download SAP GUI for Windows or Java from:
+[SAP Trials and Downloads](https://www.sap.com/products/try-sap/trials-downloads.html?search=SAP+GUI)
 
 1. Add a custom-specified system with the Application Server `<the container's IP>`or *localhost* if you exposed the port 3200 (i.e. `-p 3200:3200`) or *vhcala4hci* if you updated your *hosts* file. 
 2. Finally use Instance `00` and SID `A4H`.
+
+<h2><a>ABAP Development Tools</a></h2>
+SAP also provides two IDEs for ABAP developers:
+- [ABAP Development Tools for Visual Studio Code](https://tools.hana.ondemand.com/)
+- [ABAP Development Tools for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=SAPSE.adt-vscode)
 
 <h2><a id="user-and-passwords">User and Passwords</a></h2>
 
@@ -295,7 +301,7 @@ Accessing the port HTTP or HTTPS services via an internet browser does not have 
 
 The host value depends on the way how you started the container.  If you exposed all the required ports, then you can use *localhost*. If your Operating System allows you to configure IP routing the way that you can reach out the container's IP directly, you can use `<the container's IP>`.
 
-When you get redirected to your browser from SAPGUI, the URL will have host set to `vhcala4hci` which will not be reachable unless you modify your **hosts** file ([Hosts file](https://en.wikipedia.org/wiki/Hosts_(file))).  It is necessary to add a new entry which will make sure your Operating System will be able to translate the hostname *vhcala4hci* to an IP address. Contents of the new entry depends on how you started the container. 
+When you get redirected to your browser from SAP GUI, the URL will have host set to `vhcala4hci` which will not be reachable unless you modify your **hosts** file ([Hosts file](https://en.wikipedia.org/wiki/Hosts_(file))).  It is necessary to add a new entry which will make sure your Operating System will be able to translate the hostname *vhcala4hci* to an IP address. Contents of the new entry depends on how you started the container. 
 
 **Manually exposed ports or --net=host** - append the line `127.0.0.1  vhcala4hci`
 
