@@ -209,8 +209,7 @@ See section 4 Errors -> Logon not possible (error in license check)
 6.	You can check the license with the `SLICENSE` transaction.
 
 *Sources:
-- [How to install a new license, Comment 590445](https://blogs.sap.com/2021/04/22/how-to-install-a-new-license-in-your-sap-abap-platform-developer-edition/comment-page-1/#comment-590445)
-([RICARDO COYLLO MAYTA](https://people.sap.com/rcdesarrollo), September 24, 2021 at 5:40 pm)
+
 
 - [Setup Instructions](https://hub.docker.com/_/sap-abap-trial/plans/ac8a4f9b-ae29-4afa-9b39-25aeea24b821?tab=instructions)
 
