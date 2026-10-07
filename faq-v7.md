@@ -238,11 +238,10 @@ Great to see people getting stuck in with the new Trial
 [SAP ABAP Platform 1909, Developer Edition: Day 1 Experience and Tips and Tricks](https://blogs.sap.com/2021/02/16/sap-abap-platform-1909-developer-edition-day-1-experience-and-tips-and-tricks/)
 
 
-
 ## Enhancing your Developer Edition – Community Blog Post from 2019<!-- omit from toc --> 
 “…Interesting things how you can either enhance, tune, make more
 advanced and similar sort of things to your SAP NetWeaver Application Server ABAP Developer edition” 
-– again, this is from an older edition, but still very interesting collection by Martin Marushkin (Twitter: [MartinMar](https://twitter.com/softy012)), some basic, some quite advanced. Just one small point: In 1909, abapGit is automatically installed and SAP Flight Reference Scenario automatically pre-delivered , so no need to repeat sections 4 and 5:
+– again, this is from an older edition, but still very interesting collection by Martin Maruskin (Twitter: [MartinMar](https://twitter.com/softy012)), some basic, some quite advanced. Just one small point: In 1909, abapGit is automatically installed and SAP Flight Reference Scenario automatically pre-delivered , so no need to repeat sections 4 and 5:
 
 [Power up your SAP NetWeaver Application Server ABAP Developer
 edition](https://blog.maruskin.eu/2019/11/power-up-your-sap-netweaver-application.html)
@@ -271,6 +270,22 @@ There is a useful collection of projects here:
 See this blog post for more information: *Source:
 <https://blogs.sap.com/2021/02/24/adding-languages-to-sap-abap-platform-1909-developer-edition-for-multilingual-development>*
 
+
+## M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman
+SAP Community member [Dylan Drummond](https://people.sap.com/murmelssonic) has written this excellent detailed guide (yes, one of several):
+[M-series Apple Chip MacBooks and Abap Platform Trial containers using Docker and Podman](https://community.sap.com/t5/technology-blogs-by-members/m-series-apple-chip-macbooks-and-abap-platform-trial-containers-using/ba-p/13593215).
+
+It also includes lots of tips in the comments, including this one:
+At spin-up time, it can be a good idea to include the message-server standard port 3601 as part of the docker run or podman run command. Myself I always include it, but I suppose it is not part of the standard instructions... anyway the addition is:
+
+```Linux
+-p 3601:3601
+```
+
+Unfortunately, without a lot of trickery we won't go into here, it's not easily possible to ensure this port-forwarding works later.
+
+
+
 ## Persistence: How is the data in the ABAP container persisted? <!-- omit from toc -->
 
 The data is persisted in the Docker scratch space. For more information,
@@ -295,7 +310,7 @@ If you want to play around with business content:
     practise on, you can use the EPM model in S_NWDEMO , eg Purchase
     Order DDIC objects inS_NWDEMO_MODEL_DDIC, eg SNWD_PO.
 
-2.  To access a fully-activated S/4HANA (1809 or 2009) appliance: [SAP
+2.  To access a fully-activated S/4HANA (on-premise) appliance: [SAP
     S/4HANA Fully-Activated Appliance: Create your SAP S/4HANA system in
     a fraction of the usual setup
     time](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/)
@@ -306,13 +321,11 @@ If you want to play around with business content:
 
 ## SAP Fiori launchpad, connect to: <!-- omit from toc --> 
 
-You must edit the Hosts file – on local machine, not inside Docker
+You must edit the hosts file – on your local machine, not inside your Docker container
 
 *Source:
 <https://answers.sap.com/questions/13296560/abap-trial-sap-abap-platform-1909-start-fiori-laun.html>*## SAP HANA Studio
 
-You can install the HANA tools as Eclipse plugin
--\> <https://tools.hana.ondemand.com/#hanatools>
 
 ## SAP GUI for Java ("JavaGUI"), connect to: <!-- omit from toc --> 
 Ignore the System, Logon, Security, Language tabs. Go to Advanced tab > Expert Mode > enter IP address OR mapped DNS name of VM of your SAP System + SAP instance number (default = 00).
@@ -326,26 +339,23 @@ Depending on the Hypervisor you use, you may need to set up port forwarding from
 *(From: https://blogs.sap.com/2019/10/01/as-abap-7.52-sp04-developer-edition-concise-installation-guide/comment-page-1/#comment-625449 )
 
 
-## SAP HANA database - via external tools, e.g. SAP HANA Studio, DBeaver, WebIDE <!-- omit from toc --> 
+## SAP HANA database - via external tools, e.g. SAP HANA Tools, DBeaver <!-- omit from toc --> 
 
-### Solution 1, connect to: <!-- omit from toc --> 
+You can install SAP HANA tools as an Eclipse plugin
+- [https://tools.hana.ondemand.com/#hanatools](https://tools.hana.ondemand.com/#hanatools)
 
-If you want to connect to HANA via external tools like HANA Studio oder
-DBeaver, you have to publish the ports 30213 and 30215 in the docker run
+NOTE: SAP HANA Studio has been replaced by SAP HANA Cockpit (SAP Note 2185556) and SAP HANA Extended Services Advanced. For more information, see:
+
+- https://community.sap.com/t5/technology-q-a/sap-hana-studio-discontinued/qaq-p/510917
+- SAP Note [2396214](https://me.sap.com/notes/2396214)
+
+If you want to connect to HANA via external tools like HANA Studio or DBeaver, you have to publish the ports 30213 and 30215 in the docker run
 command.
-
-Same with WebIDE:
-
-
-```bash
-
--p 8080:8080 or -p 53075:53075
-```
 
 *Source:
 <https://blogs.sap.com/2021/02/15/sap-abap-platform-1909-developer-edition-available-soon/comment-page-1/#comment-558716>*
 
-### Solution 2: Troubleshooting <!-- omit from toc --> 
+### Troubleshooting <!-- omit from toc --> 
 
 “I ran into problem with tenant connection from Hana Studio, and it was
 resolved with [SAP Note 2551889](https://launchpad.support.sap.com/#/notes/2551889)”
