@@ -506,28 +506,8 @@ See also: [Power up your SAP NetWeaver Application Server ABAP Developer
 edition](https://blog.maruskin.eu/2019/11/power-up-your-sap-netweaver-application.html),
 sections 2, 3, 8, 9
 
-# 5 Users and Passwords
 
-**Normal user/password:**
-
-
-> User: DEVELOPER
->
-> Password: Ldtf5432
-
-**Password for the a4hadm OS user in the container**
-
-In Docker you don't need a password for user **a4hadm**. You just open a
-new CMD prompt and switch users.
-
-
-```bash
-docker exec -it a4h bash  
-su a4hadm
-```
-
-
-# 6 Resources
+# 5 Resources
 
 [Setup Instructions](https://hub.docker.com/_/sap-abap-trial/plans/ac8a4f9b-ae29-4afa-9b39-25aeea24b821?tab=instructions)
 
