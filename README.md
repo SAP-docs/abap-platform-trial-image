@@ -14,9 +14,6 @@
 
 <h1><a id="support">Important</a></h1> 
 
-> NOTE: To pull the image, click on the tab **Tags** and choose the correct Docker command from there.
-> **DO NOT** attempt to pull the image from this page (Overview).
-
 > IMPORTANT: Since ABAP Cloud Developer Trial is a free offering for education and demo purposes only, we offer it with SAP Community support. That means that no primary support is available for this product. 
 > 
 > To get Community Support, create a new question in the SAP Community - go to [SAP Community - ABAP Development Forum](https://community.sap.com/t5/forums/postpage/choose-node/true/product-id/833755570260738661924709785639136/> board-id/technology-questions) and add the user tag "#abap_trial". I will try to monitor these questions, but other experienced ABAP users / mentors also see them and often provide support.
