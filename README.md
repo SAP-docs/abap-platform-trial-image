@@ -1,3 +1,15 @@
+# Update: 17th November, 2026: 
+
+As of today, ABAP Cloud Developer Trial is no longer available. 
+In January 2026, we will be setting this repo to Private.
+
+I know that several of you have contributed content to either the Readme or the FAQs; if you would like long-term, read-only access to this content, then please let me know in the comments.
+
+For more details, please see the following blog post:
+[Discontinuation of the ABAP Cloud Developer Trial](https://community.sap.com/t5/technology-blog-posts-by-sap/discontinuation-of-the-abap-cloud-developer-trial/ba-p/14517552)
+
+
+# Original Text
 
 - [**Important**:](#important)
 - [Requirements](#requirements)
